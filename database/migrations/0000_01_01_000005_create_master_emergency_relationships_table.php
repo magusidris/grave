@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('master_payment_methods', function (Blueprint $table) {
+        Schema::create('master_emergency_relationships', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
             $table->timestamps();
@@ -23,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('master_payment_methods');
+        Schema::dropIfExists('master_emergency_relationships');
     }
 };

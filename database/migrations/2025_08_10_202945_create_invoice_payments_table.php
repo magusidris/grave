@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('invoice_id')->constrained('invoices')->onDelete('cascade');
             $table->foreignId('payment_method_id')->constrained('master_payment_methods')->onDelete('cascade');
             $table->unsignedBigInteger('amount');
+            $table->unsignedBigInteger('discount')->default(0);
             $table->timestamps();
         });
     }

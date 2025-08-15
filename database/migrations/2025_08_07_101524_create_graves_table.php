@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('cluster_id')->constrained('grave_clusters')->onDelete('cascade');
             $table->foreignId('block_id')->constrained('grave_blocks')->onDelete('cascade');
             $table->unsignedTinyInteger('number')->default(1);
+            $table->string('code')->unique();
             $table->boolean('is_available')->default(true);
             $table->boolean('is_occupied')->default(false);
             $table->boolean('is_fully_paid')->default(false);

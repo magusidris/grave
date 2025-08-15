@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('photo')->nullable();
             $table->morphs('model');
-            $table->foreignId('identity_type')->constrained('master_identity_types')->onDelete('cascade');
+            $table->foreignId('identity_type_id')->constrained('master_identity_types')->onDelete('cascade');
             $table->string('identity_number')->unique();
             $table->foreignId('province_id')->nullable()->constrained('master_provinces')->onDelete('cascade');
             $table->foreignId('city_id')->nullable()->constrained('master_cities')->onDelete('cascade');

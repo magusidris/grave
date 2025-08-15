@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class GraveBlock extends Model
 {
-    //
+    protected $guarded = [];
 }

@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class MasterCity extends Model
 {
-    //
+    protected $guarded = [];
 }

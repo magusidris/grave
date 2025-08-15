@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class MasterIdentityType extends Model
 {
-    //
+    protected $guarded = [];
 }

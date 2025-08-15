@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class MasterEmergencyRelationship extends Model
 {
-    //
+    protected $guarded = [];
 }

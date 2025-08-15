@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Models\UserIdentity;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -13,13 +14,19 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        User::create([
+        $user = User::create([
+            'title' => 3,
             'name' => 'Idris',
             'email' => 'magusidris@undipa.ac.id',
             'phone' => '081234567890',
-            'address' => 'Jl. Anuang no. 28, Makassar',
             'email_verified_at' => now(),
             'password' => bcrypt('Bismillah'),
         ]);
+
+        $detail = new UserIdentity;
+        $detail->identity_type_id = 1;
+        $detail->identity_number = '1234567890';
+        $detail->address = 'Jl. Anuang no. 28, Makassar';
+        $user->identity()->save($detail);
     }
 }

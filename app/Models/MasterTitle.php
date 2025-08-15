@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class MasterTitle extends Model
 {
-    //
+    protected $guarded = [];
 }

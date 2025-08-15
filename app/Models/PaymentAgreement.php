@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class PaymentAgreement extends Model
 {
-    //
+    protected $guarded = [];
 }

@@ -17,9 +17,9 @@ return new class extends Migration
             $table->foreignId('customer_id')->constrained()->onDelete('cascade');
             $table->string('name');
             $table->string('phone');
-            $table->foreignId('province_id')->constrained()->onDelete('cascade');
-            $table->foreignId('city_id')->constrained()->onDelete('cascade');
-            $table->foreignId('subdistrict_id')->constrained()->onDelete('cascade');
+            $table->foreignId('province_id')->nullable()->constrained('master_provinces')->onDelete('cascade');
+            $table->foreignId('city_id')->nullable()->constrained('master_cities')->onDelete('cascade');
+            $table->foreignId('subdistrict_id')->nullable()->constrained('master_subdistricts')->onDelete('cascade');
             $table->text('address');
             $table->unsignedBigInteger('grand_total');
             $table->unsignedBigInteger('down_payment');

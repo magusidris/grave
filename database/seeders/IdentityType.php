@@ -2,8 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\MasterIdentityType;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class IdentityType extends Seeder
 {
@@ -12,6 +13,10 @@ class IdentityType extends Seeder
      */
     public function run(): void
     {
-        //
+        MasterIdentityType::insert([
+            ['name' => 'KTP', 'description' => 'Kartu Tanda Penduduk'],
+            ['name' => 'SIM', 'description' => 'Surat Izin Mengemudi'],
+            ['name' => 'PASSPORT', 'description' => 'Paspor'],
+        ]);
     }
 }

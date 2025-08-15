@@ -13,6 +13,13 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('customer_id')->constrained()->onDelete('cascade');
+            $table->foreignId('payment_agreement_id')->nullable()->constrained()->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('type_id')->constrained('grave_types')->onDelete('cascade');
+            $table->foreignId('cluster_id')->constrained('grave_clusters')->onDelete('cascade');
+            $table->foreignId('block_id')->constrained('grave_blocks')->onDelete('cascade');
+            $table->foreignId('grave_id')->constrained('graves')->onDelete('cascade');
+            $table->unsignedBigInteger('price');
             $table->timestamps();
         });
     }

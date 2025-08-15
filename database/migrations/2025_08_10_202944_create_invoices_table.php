@@ -14,8 +14,9 @@ return new class extends Migration
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
             $table->string('invoice')->unique();
-            $table->foreignId('status_id')->constrained('invoice_statuses')->onDelete('cascade');
             $table->foreignId('customer_id')->constrained('customers')->onDelete('cascade');
+            $table->foreignId('payment_agreement_id')->nullable()->constrained()->onUpdate('cascade')->onDelete('cascade');
+            $table->enum('status', ['pending', 'paid', 'overdue'])->default('pending');
             $table->string('name');
             $table->string('phone');
             $table->foreignId('province_id')->nullable()->constrained('master_provinces')->onDelete('cascade');

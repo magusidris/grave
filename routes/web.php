@@ -7,9 +7,18 @@ Route::get('/', function () {
     return Inertia::render('Welcome');
 })->name('home');
 
-Route::get('dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::prefix('admin')->middleware(['auth', 'verified'])->name('admin.')->group(function () {
+    Route::get('dashboard', function () {
+        return Inertia::render('Admin/Dashboard/Index');
+    })->name('dashboard');
+
+    Route::prefix('master')->name('master.')->group(function () {
+
+        Route::get('provinces', \App\Http\Controllers\Admin\Master\ProvinceController::class)->name('province.index');
+
+        Route::get('cities', \App\Http\Controllers\Admin\Master\CityController::class)->name('city.index');
+    });
+});
 
 require __DIR__ . '/settings.php';
 require __DIR__ . '/auth.php';

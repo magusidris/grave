@@ -4,13 +4,13 @@ import NavUser from '@/components/NavUser.vue';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/vue3';
-import { LayoutGrid, Shapes, Target } from 'lucide-vue-next';
+import { LayoutGrid, Target } from 'lucide-vue-next';
 import AppLogo from './AppLogo.vue';
 
 const mainNavItems: NavItem[] = [
     {
         title: 'Dashboard',
-        href: '/dashboard',
+        href: '/admin/dashboard',
         icon: LayoutGrid,
     },
 ];
@@ -22,16 +22,6 @@ const navItem2: NavItem[] = [
         icon: LayoutGrid,
         isActive: true,
         items: [
-            {
-                title: 'Categories',
-                href: '/admin/master/categories',
-                icon: Shapes,
-            },
-            {
-                title: 'Google P. Categories',
-                href: '/admin/master/google-categories',
-                icon: Target,
-            },
             {
                 title: 'Provinces',
                 href: '/admin/master/provinces',
@@ -53,7 +43,7 @@ const navItem2: NavItem[] = [
             <SidebarMenu>
                 <SidebarMenuItem>
                     <SidebarMenuButton size="lg" as-child>
-                        <Link :href="route('dashboard')">
+                        <Link :href="route('admin.dashboard')">
                             <AppLogo />
                         </Link>
                     </SidebarMenuButton>
@@ -62,7 +52,8 @@ const navItem2: NavItem[] = [
         </SidebarHeader>
 
         <SidebarContent>
-            <NavMain :items="mainNavItems" />
+            <NavMain group-label="Test" :items="mainNavItems" />
+            <NavMain collapsible :items="navItem2" />
         </SidebarContent>
 
         <SidebarFooter>

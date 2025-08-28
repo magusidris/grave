@@ -15,11 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('photo')->nullable();
             $table->morphs('model');
-            $table->foreignId('identity_type_id')->constrained('master_identity_types')->onDelete('cascade');
+            $table->foreignId('identity_type_id')->constrained('master_identity_types')->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('identity_number')->unique();
-            $table->foreignId('province_id')->nullable()->constrained('master_provinces')->onDelete('cascade');
-            $table->foreignId('city_id')->nullable()->constrained('master_cities')->onDelete('cascade');
-            $table->foreignId('subdistrict_id')->nullable()->constrained('master_subdistricts')->onDelete('cascade');
+            $table->foreignId('province_id')->nullable()->constrained('master_provinces')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('city_id')->nullable()->constrained('master_cities')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('subdistrict_id')->nullable()->constrained('master_subdistricts')->cascadeOnUpdate()->cascadeOnDelete();
             $table->text('address')->nullable();
             $table->timestamps();
         });

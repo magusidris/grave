@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('master_cities', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('province_id')->constrained('master_provinces')->onDelete('cascade');
+            $table->foreignId('province_id')->constrained('master_provinces')->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('province');
             $table->enum('type', ['kabupaten', 'kota'])->default('kabupaten');
             $table->string('name');

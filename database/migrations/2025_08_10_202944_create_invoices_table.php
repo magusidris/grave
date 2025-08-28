@@ -14,14 +14,14 @@ return new class extends Migration
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
             $table->string('invoice')->unique();
-            $table->foreignId('customer_id')->constrained('customers')->onDelete('cascade');
-            $table->foreignId('payment_agreement_id')->nullable()->constrained()->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('customer_id')->constrained('customers')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('payment_agreement_id')->nullable()->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->enum('status', ['pending', 'paid', 'overdue'])->default('pending');
             $table->string('name');
             $table->string('phone');
-            $table->foreignId('province_id')->nullable()->constrained('master_provinces')->onDelete('cascade');
-            $table->foreignId('city_id')->nullable()->constrained('master_cities')->onDelete('cascade');
-            $table->foreignId('subdistrict_id')->nullable()->constrained('master_subdistricts')->onDelete('cascade');
+            $table->foreignId('province_id')->nullable()->constrained('master_provinces')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('city_id')->nullable()->constrained('master_cities')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('subdistrict_id')->nullable()->constrained('master_subdistricts')->cascadeOnUpdate()->cascadeOnDelete();
             $table->text('address')->nullable();
             $table->timestamps();
         });

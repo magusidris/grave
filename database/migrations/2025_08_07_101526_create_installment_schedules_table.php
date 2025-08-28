@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('installment_schedules', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('payment_agreement_id')->constrained()->onDelete('cascade');
+            $table->foreignId('payment_agreement_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->unsignedTinyInteger('installment_number');
             $table->unsignedBigInteger('amount_due');
             $table->date('due_date');

@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('master_subdistricts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('province_id')->constrained('master_provinces')->onDelete('cascade');
+            $table->foreignId('province_id')->constrained('master_provinces')->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('province');
-            $table->foreignId('city_id')->constrained('master_cities')->onDelete('cascade');
+            $table->foreignId('city_id')->constrained('master_cities')->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('city');
             $table->enum('type', ['kabupaten', 'kota'])->default('kabupaten');
             $table->string('name');

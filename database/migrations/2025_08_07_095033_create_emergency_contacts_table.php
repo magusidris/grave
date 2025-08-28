@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('emergency_contacts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('customer_id')->constrained()->onDelete('cascade');
-            $table->foreignId('relationship_id')->constrained('master_emergency_relationships')->onDelete('cascade');
+            $table->foreignId('customer_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('relationship_id')->constrained('master_emergency_relationships')->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('name');
             $table->string('phone')->unique();
             $table->string('email')->nullable();

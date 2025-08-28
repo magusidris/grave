@@ -15,17 +15,21 @@
                         <!-- <TableCaption>A list of your recent invoices.</TableCaption> -->
                         <TableHeader>
                             <TableRow>
-                                <TableHead class="w-[100px]"> Province </TableHead>
+                                <TableHead class="w-[100px]"> Name </TableHead>
                                 <TableHead class="w-[100px]"> City </TableHead>
+                                <TableHead class="w-[100px]"> Province </TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            <TableRow v-for="(city, id) in subdistricts.data" :key="id">
+                            <TableRow v-for="(subdistrict, id) in subdistricts.data" :key="id">
                                 <TableCell class="font-medium">
-                                    {{ city.province }}
+                                    {{ subdistrict.name }}
                                 </TableCell>
                                 <TableCell class="font-medium">
-                                    {{ city.name }}
+                                    <span class="capitalize">{{ subdistrict.type + ' ' }} </span>{{ subdistrict.city }}
+                                </TableCell>
+                                <TableCell class="font-medium">
+                                    {{ subdistrict.province }}
                                 </TableCell>
                             </TableRow>
                         </TableBody>
@@ -53,14 +57,14 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import AppLayout from '@/layouts/AppLayout.vue';
-import { type BreadcrumbItem, type City } from '@/types';
+import { type BreadcrumbItem, type Subdistrict } from '@/types';
 import { Head, router, usePage } from '@inertiajs/vue3';
 import { ref } from 'vue';
 
 const page = usePage();
 
 const props = defineProps<{
-    subdistricts: City[];
+    subdistricts: Subdistrict[];
     errors: Object;
 }>();
 
@@ -68,7 +72,7 @@ const search = ref(new URL(document.location).searchParams.get('q'));
 
 const handleSearch = () => {
     router.get(
-        route('admin.master.city.index'),
+        route('admin.master.subdistrict.index'),
         {
             q: search.value !== null ? search.value : '',
         },

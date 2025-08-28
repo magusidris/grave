@@ -32,6 +32,11 @@ const navItem2: NavItem[] = [
                 href: '/admin/master/cities',
                 icon: Target,
             },
+            {
+                title: 'Subdistricts',
+                href: '/admin/master/subdistricts',
+                icon: Target,
+            },
         ],
     },
 ];

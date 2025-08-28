@@ -17,6 +17,8 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->name('admin.')->group(
         Route::get('provinces', \App\Http\Controllers\Admin\Master\ProvinceController::class)->name('province.index');
 
         Route::get('cities', \App\Http\Controllers\Admin\Master\CityController::class)->name('city.index');
+
+        Route::get('subdistricts', \App\Http\Controllers\Admin\Master\SubdistrictController::class)->name('subdistrict.index');
     });
 });
 

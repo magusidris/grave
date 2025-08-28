@@ -3,7 +3,7 @@
         <Head title="Dashboard" />
         <div class="p-4">
             <div class="flex h-full flex-col space-y-6">
-                <HeadingSmall title="Cities" description="Manage your cities" />
+                <HeadingSmall title="Subdistricts" description="Manage your subdistricts" />
                 <div class="h-[29rem]">
                     <form @submit.prevent="handleSearch">
                         <div class="mb-4 flex w-full items-center">
@@ -15,17 +15,17 @@
                         <!-- <TableCaption>A list of your recent invoices.</TableCaption> -->
                         <TableHeader>
                             <TableRow>
-                                <TableHead class="w-[100px]"> Name </TableHead>
                                 <TableHead class="w-[100px]"> Province </TableHead>
+                                <TableHead class="w-[100px]"> City </TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            <TableRow v-for="(city, id) in cities.data" :key="id">
-                                <TableCell class="font-medium">
-                                    <span class="capitalize">{{ city.type + ' ' }} </span>{{ city.name }}
-                                </TableCell>
+                            <TableRow v-for="(city, id) in subdistricts.data" :key="id">
                                 <TableCell class="font-medium">
                                     {{ city.province }}
+                                </TableCell>
+                                <TableCell class="font-medium">
+                                    {{ city.name }}
                                 </TableCell>
                             </TableRow>
                         </TableBody>
@@ -33,11 +33,11 @@
                 </div>
                 <div class="flex justify-end">
                     <Pagination
-                        :links="cities.links"
-                        :prev="cities.prev_page_url"
-                        :next="cities.next_page_url"
-                        :current="cities.current_page"
-                        :last="cities.last_page"
+                        :links="subdistricts.links"
+                        :prev="subdistricts.prev_page_url"
+                        :next="subdistricts.next_page_url"
+                        :current="subdistricts.current_page"
+                        :last="subdistricts.last_page"
                     />
                 </div>
             </div>
@@ -60,7 +60,7 @@ import { ref } from 'vue';
 const page = usePage();
 
 const props = defineProps<{
-    cities: City[];
+    subdistricts: City[];
     errors: Object;
 }>();
 
@@ -88,8 +88,8 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: '#',
     },
     {
-        title: 'Cities',
-        href: '/admin/master/cities',
+        title: 'Subdistricts',
+        href: '/admin/master/subdistricts',
     },
 ];
 </script>

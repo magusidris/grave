@@ -15,6 +15,37 @@ export interface NavItem {
     href: string;
     icon?: LucideIcon;
     isActive?: boolean;
+    items?: {
+        title: string;
+        href: string;
+        icon?: LucideIcon;
+        isActive?: boolean;
+    }[];
+}
+
+export interface ProvinceResource {
+    id: number;
+    name: string;
+    created_at: DateTime;
+    updated_at: DateTime;
+}
+
+export interface CityResource {
+    id: number;
+    province_id: number;
+    province: string;
+    name: string;
+    created_at: DateTime;
+    updated_at: DateTime;
+}
+
+export interface SubdistrictResource {
+    id: number;
+    city_id: number;
+    city: string;
+    name: string;
+    created_at: DateTime;
+    updated_at: DateTime;
 }
 
 export type AppPageProps<T extends Record<string, unknown> = Record<string, unknown>> = T & {
@@ -23,6 +54,12 @@ export type AppPageProps<T extends Record<string, unknown> = Record<string, unkn
     auth: Auth;
     ziggy: Config & { location: string };
     sidebarOpen: boolean;
+};
+
+export type PaginationLink = {
+    url: string | null;
+    label: string;
+    active: boolean;
 };
 
 export interface User {

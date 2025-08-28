@@ -39,10 +39,11 @@
     "name": "laravel/vue-starter-kit",
     "prefer-stable": true,
     "require": {
+        "php": "^8.2",
         "inertiajs/inertia-laravel": "^2.0",
         "laravel/framework": "^12.0",
         "laravel/tinker": "^2.10.1",
-        "php": "^8.2",
+        "spatie/laravel-permission": "^6.21",
         "tightenco/ziggy": "^2.4"
     },
     "require-dev": {

@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import NavFooter from '@/components/NavFooter.vue';
 import NavMain from '@/components/NavMain.vue';
 import NavUser from '@/components/NavUser.vue';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/vue3';
-import { BookOpen, Folder, LayoutGrid } from 'lucide-vue-next';
+import { LayoutGrid, Shapes, Target } from 'lucide-vue-next';
 import AppLogo from './AppLogo.vue';
 
 const mainNavItems: NavItem[] = [
@@ -16,16 +15,34 @@ const mainNavItems: NavItem[] = [
     },
 ];
 
-const footerNavItems: NavItem[] = [
+const navItem2: NavItem[] = [
     {
-        title: 'Github Repo',
-        href: 'https://github.com/laravel/vue-starter-kit',
-        icon: Folder,
-    },
-    {
-        title: 'Documentation',
-        href: 'https://laravel.com/docs/starter-kits#vue',
-        icon: BookOpen,
+        title: 'Master',
+        href: '/master',
+        icon: LayoutGrid,
+        isActive: true,
+        items: [
+            {
+                title: 'Categories',
+                href: '/admin/master/categories',
+                icon: Shapes,
+            },
+            {
+                title: 'Google P. Categories',
+                href: '/admin/master/google-categories',
+                icon: Target,
+            },
+            {
+                title: 'Provinces',
+                href: '/admin/master/provinces',
+                icon: Target,
+            },
+            {
+                title: 'Cities',
+                href: '/admin/master/cities',
+                icon: Target,
+            },
+        ],
     },
 ];
 </script>
@@ -49,7 +66,6 @@ const footerNavItems: NavItem[] = [
         </SidebarContent>
 
         <SidebarFooter>
-            <NavFooter :items="footerNavItems" />
             <NavUser />
         </SidebarFooter>
     </Sidebar>

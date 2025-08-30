@@ -14,17 +14,17 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->name('admin.')->group(
 
     Route::prefix('master')->name('master.')->group(function () {
 
-        Route::get('provinces', \App\Http\Controllers\Admin\Master\ProvinceController::class)->name('province.index');
+        Route::get('provinces', \App\Http\Controllers\Admin\Master\ProvinceController::class)->name('provinces.index');
 
-        Route::get('cities', \App\Http\Controllers\Admin\Master\CityController::class)->name('city.index');
+        Route::get('cities', \App\Http\Controllers\Admin\Master\CityController::class)->name('cities.index');
 
-        Route::get('subdistricts', \App\Http\Controllers\Admin\Master\SubdistrictController::class)->name('subdistrict.index');
+        Route::get('subdistricts', \App\Http\Controllers\Admin\Master\SubdistrictController::class)->name('subdistricts.index');
 
-        Route::get('titles', \App\Http\Controllers\Admin\Master\TitleController::class)->name('title.index');
+        Route::get('titles', \App\Http\Controllers\Admin\Master\TitleController::class)->name('titles.index');
 
-        Route::get('identities', \App\Http\Controllers\Admin\Master\IdentityController::class)->name('identity.index');
+        Route::get('identities', \App\Http\Controllers\Admin\Master\IdentityController::class)->name('identities.index');
 
-        Route::get('relationships', \App\Http\Controllers\Admin\Master\RelationshipController::class)->name('relationship.index');
+        Route::get('relationships', \App\Http\Controllers\Admin\Master\RelationshipController::class)->name('relationships.index');
 
         Route::get('payments', \App\Http\Controllers\Admin\Master\PaymentMethodController::class)->name('payments.index');
     });

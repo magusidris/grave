@@ -62,6 +62,23 @@ export type PaginationLink = {
     active: boolean;
 };
 
+export interface Title {
+    id: number;
+    name: string;
+    gender: string;
+    description: string;
+    created_at: string;
+    updated_at: string;
+}
+
+export interface Identity {
+    id: number;
+    name: string;
+    description: string;
+    created_at: string;
+    updated_at: string;
+}
+
 export interface User {
     id: number;
     name: string;

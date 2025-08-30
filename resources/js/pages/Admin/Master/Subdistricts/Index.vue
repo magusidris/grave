@@ -72,7 +72,7 @@ const search = ref(new URL(document.location).searchParams.get('q'));
 
 const handleSearch = () => {
     router.get(
-        route('admin.master.subdistrict.index'),
+        route('admin.master.subdistricts.index'),
         {
             q: search.value !== null ? search.value : '',
         },

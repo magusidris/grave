@@ -64,7 +64,7 @@ const search = ref(new URL(document.location).searchParams.get('q'));
 
 const handleSearch = () => {
     router.get(
-        route('admin.master.province.index'),
+        route('admin.master.provinces.index'),
         {
             q: search.value !== null ? search.value : '',
         },

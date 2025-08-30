@@ -3,7 +3,7 @@
         <Head title="Dashboard" />
         <div class="p-4">
             <div class="flex h-full flex-col space-y-6">
-                <HeadingSmall title="Provinces" description="Manage your provinces" />
+                <HeadingSmall title="Identities" description="Manage your identities" />
                 <div class="h-[29rem]">
                     <form @submit.prevent="handleSearch">
                         <div class="mb-4 flex w-full items-center">
@@ -16,12 +16,16 @@
                         <TableHeader>
                             <TableRow>
                                 <TableHead class="w-[100px]"> Name </TableHead>
+                                <TableHead class="w-[100px]"> Description </TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            <TableRow v-for="(province, id) in provinces.data" :key="id">
+                            <TableRow v-for="(identity, id) in identities.data" :key="id">
                                 <TableCell class="font-medium">
-                                    {{ province.name }}
+                                    {{ identity.name }}
+                                </TableCell>
+                                <TableCell class="font-medium">
+                                    {{ identity.description }}
                                 </TableCell>
                             </TableRow>
                         </TableBody>
@@ -29,11 +33,11 @@
                 </div>
                 <div class="flex justify-end">
                     <Pagination
-                        :links="provinces.links"
-                        :prev="provinces.prev_page_url"
-                        :next="provinces.next_page_url"
-                        :current="provinces.current_page"
-                        :last="provinces.last_page"
+                        :links="identities.links"
+                        :prev="identities.prev_page_url"
+                        :next="identities.next_page_url"
+                        :current="identities.current_page"
+                        :last="identities.last_page"
                     />
                 </div>
             </div>
@@ -56,7 +60,7 @@ import { ref } from 'vue';
 const page = usePage();
 
 const props = defineProps<{
-    provinces: Province[];
+    identities: Province[];
     errors: Object;
 }>();
 
@@ -64,7 +68,7 @@ const search = ref(new URL(document.location).searchParams.get('q'));
 
 const handleSearch = () => {
     router.get(
-        route('admin.master.province.index'),
+        route('admin.master.identities.index'),
         {
             q: search.value !== null ? search.value : '',
         },
@@ -84,8 +88,8 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: '#',
     },
     {
-        title: 'Provinces',
-        href: '/admin/master/provinces',
+        title: 'Identities',
+        href: '/admin/master/identities',
     },
 ];
 </script>

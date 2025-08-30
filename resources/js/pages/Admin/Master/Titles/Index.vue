@@ -3,7 +3,7 @@
         <Head title="Dashboard" />
         <div class="p-4">
             <div class="flex h-full flex-col space-y-6">
-                <HeadingSmall title="Cities" description="Manage your cities" />
+                <HeadingSmall title="Titles" description="Manage your titles" />
                 <div class="h-[29rem]">
                     <form @submit.prevent="handleSearch">
                         <div class="mb-4 flex w-full items-center">
@@ -16,16 +16,20 @@
                         <TableHeader>
                             <TableRow>
                                 <TableHead class="w-[100px]"> Name </TableHead>
-                                <TableHead class="w-[100px]"> Province </TableHead>
+                                <TableHead class="w-[100px]"> Gender </TableHead>
+                                <TableHead class="w-[100px]"> Description </TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            <TableRow v-for="(city, id) in cities.data" :key="id">
+                            <TableRow v-for="(title, id) in titles.data" :key="id">
                                 <TableCell class="font-medium">
-                                    <span class="capitalize">{{ city.type + ' ' }} </span>{{ city.name }}
+                                    {{ title.name }}
                                 </TableCell>
-                                <TableCell class="font-medium">
-                                    {{ city.province }}
+                                <TableCell class="capitalize">
+                                    {{ title.gender }}
+                                </TableCell>
+                                <TableCell>
+                                    {{ title.description }}
                                 </TableCell>
                             </TableRow>
                         </TableBody>
@@ -33,11 +37,11 @@
                 </div>
                 <div class="flex justify-end">
                     <Pagination
-                        :links="cities.links"
-                        :prev="cities.prev_page_url"
-                        :next="cities.next_page_url"
-                        :current="cities.current_page"
-                        :last="cities.last_page"
+                        :links="titles.links"
+                        :prev="titles.prev_page_url"
+                        :next="titles.next_page_url"
+                        :current="titles.current_page"
+                        :last="titles.last_page"
                     />
                 </div>
             </div>
@@ -53,14 +57,14 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import AppLayout from '@/layouts/AppLayout.vue';
-import { type BreadcrumbItem, type City } from '@/types';
+import { type BreadcrumbItem, type Title } from '@/types';
 import { Head, router, usePage } from '@inertiajs/vue3';
 import { ref } from 'vue';
 
 const page = usePage();
 
 const props = defineProps<{
-    cities: City[];
+    titles: Title[];
     errors: Object;
 }>();
 
@@ -68,7 +72,7 @@ const search = ref(new URL(document.location).searchParams.get('q'));
 
 const handleSearch = () => {
     router.get(
-        route('admin.master.cities.index'),
+        route('admin.master.titles.index'),
         {
             q: search.value !== null ? search.value : '',
         },
@@ -88,8 +92,8 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: '#',
     },
     {
-        title: 'Cities',
-        href: '/admin/master/cities',
+        title: 'Titles',
+        href: '/admin/master/titles',
     },
 ];
 </script>

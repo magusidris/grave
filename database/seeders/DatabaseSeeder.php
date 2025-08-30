@@ -14,12 +14,15 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
-            TitleSeeder::class,
+            MasterTitleSeeder::class,
             MasterProvinceSeeder::class,
             MasterCitySeeder::class,
             MasterSubdistrictSeeder::class,
-            IdentityTypeSeeder::class,
-            RelationshipSeeder::class,
+            MasterPaymentMethodSeeder::class,
+            MasterIdentityTypeSeeder::class,
+            MasterRelationshipSeeder::class,
+            RolesSeeder::class,
+            PermissionsSeeder::class,
             UserSeeder::class,
             // Add other seeders here as needed
         ]);

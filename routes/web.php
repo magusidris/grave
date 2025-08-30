@@ -25,6 +25,8 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->name('admin.')->group(
         Route::get('identities', \App\Http\Controllers\Admin\Master\IdentityController::class)->name('identity.index');
 
         Route::get('relationships', \App\Http\Controllers\Admin\Master\RelationshipController::class)->name('relationship.index');
+
+        Route::get('payments', \App\Http\Controllers\Admin\Master\PaymentMethodController::class)->name('payments.index');
     });
 });
 

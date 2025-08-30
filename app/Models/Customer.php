@@ -6,5 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Customer extends Model
 {
+    /**
+     * guarded
+     *
+     * @var array
+     */
     protected $guarded = [];
 }

@@ -13,16 +13,14 @@ return new class extends Migration
     {
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
-            $table->string('invoice')->unique();
+            $table->string('code')->unique();
             $table->foreignId('customer_id')->constrained('customers')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('payment_agreement_id')->nullable()->constrained()->cascadeOnUpdate()->cascadeOnDelete();
-            $table->enum('status', ['pending', 'paid', 'overdue'])->default('pending');
-            $table->string('name');
-            $table->string('phone');
-            $table->foreignId('province_id')->nullable()->constrained('master_provinces')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreignId('city_id')->nullable()->constrained('master_cities')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreignId('subdistrict_id')->nullable()->constrained('master_subdistricts')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->text('address')->nullable();
+            $table->foreignId('installment_schedule_id')->nullable()->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->enum('status', ['draft', 'sent', 'paid', 'overdue', 'void'])->default('draft');
+            $table->unsignedBigInteger('total_amount');
+            $table->date('due_date');
+            $table->text('notes')->nullable();
             $table->timestamps();
         });
     }

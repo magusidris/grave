@@ -30,6 +30,7 @@ class PermissionsSeeder extends Seeder
         Permission::create(['name' => 'mastertitles.index']);
         Permission::create(['name' => 'masteridentities.index']);
         Permission::create(['name' => 'masterrelationships.index']);
+        Permission::create(['name' => 'masterpaymentmethods.index']);
 
         //permission for roles
         Permission::create(['name' => 'roles.index']);
@@ -65,5 +66,19 @@ class PermissionsSeeder extends Seeder
         Permission::create(['name' => 'graves.create']);
         Permission::create(['name' => 'graves.edit']);
         Permission::create(['name' => 'graves.delete']);
+
+        Permission::create(['name' => 'transactions.index']);
+
+        Permission::create(['name' => 'orders.index']);
+
+        Permission::create(['name' => 'sales.index']);
+
+        Permission::create(['name' => 'paymentagreements.index']);
+
+        Permission::create(['name' => 'installments.index']);
+
+        Permission::create(['name' => 'invoices.index']);
+
+        Permission::create(['name' => 'invoicepayments.index']);
     }
 }

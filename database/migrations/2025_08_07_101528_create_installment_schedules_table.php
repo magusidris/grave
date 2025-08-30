@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('payment_agreement_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->unsignedTinyInteger('installment_number');
-            $table->unsignedBigInteger('amount_due');
             $table->date('due_date');
+            $table->unsignedBigInteger('amount_due');
             $table->enum('status', ['pending', 'paid', 'overdue'])->default('pending');
             $table->timestamps();
         });

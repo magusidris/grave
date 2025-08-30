@@ -37,6 +37,26 @@ const navItem2: NavItem[] = [
                 href: '/admin/master/subdistricts',
                 icon: Target,
             },
+            {
+                title: 'Titles',
+                href: '/admin/master/titles',
+                icon: Target,
+            },
+            {
+                title: 'Identities',
+                href: '/admin/master/identities',
+                icon: Target,
+            },
+            {
+                title: 'Relationships',
+                href: '/admin/master/relationships',
+                icon: Target,
+            },
+            {
+                title: 'Payment Methods',
+                href: '/admin/master/payments',
+                icon: Target,
+            },
         ],
     },
 ];

@@ -6,5 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Grave extends Model
 {
+    /**
+     * guarded
+     *
+     * @var array
+     */
     protected $guarded = [];
 }

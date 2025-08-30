@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class UserIdentity extends Model
 {
+    /**
+     * guarded
+     *
+     * @var array
+     */
     protected $guarded = [];
 
     /**

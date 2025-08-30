@@ -6,7 +6,7 @@ use App\Models\MasterTitle;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-class TitleSeeder extends Seeder
+class MasterTitleSeeder extends Seeder
 {
     /**
      * Run the database seeds.

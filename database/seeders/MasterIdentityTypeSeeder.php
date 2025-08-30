@@ -6,7 +6,7 @@ use Illuminate\Database\Seeder;
 use App\Models\MasterIdentityType;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-class IdentityTypeSeeder extends Seeder
+class MasterIdentityTypeSeeder extends Seeder
 {
     /**
      * Run the database seeds.

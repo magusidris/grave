@@ -4,8 +4,10 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use App\Models\UserIdentity;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class UserSeeder extends Seeder
 {
@@ -28,5 +30,17 @@ class UserSeeder extends Seeder
         $detail->identity_number = '1234567890';
         $detail->address = 'Jl. Anuang no. 28, Makassar';
         $user->identity()->save($detail);
+
+        // get all permissions
+        $permissions = Permission::all();
+
+        // get role programmer
+        $role = Role::find(1);
+
+        // assign permissions to role
+        $role->syncPermissions($permissions);
+
+        // assign role to user
+        $user->assignRole($role);
     }
 }

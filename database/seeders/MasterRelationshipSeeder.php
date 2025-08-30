@@ -6,7 +6,7 @@ use App\Models\MasterEmergencyRelationship;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class RelationshipSeeder extends Seeder
+class MasterRelationshipSeeder extends Seeder
 {
     /**
      * Run the database seeds.

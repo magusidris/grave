@@ -40,6 +40,32 @@ const navItem2: NavItem[] = [
         ],
     },
 ];
+
+const navItem3: NavItem[] = [
+    {
+        title: 'User Management',
+        href: '/management',
+        icon: LayoutGrid,
+        isActive: true,
+        items: [
+            {
+                title: 'Roles',
+                href: '/admin/management/roles',
+                icon: Target,
+            },
+            {
+                title: 'Permissions',
+                href: '/admin/management/permissions',
+                icon: Target,
+            },
+            {
+                title: 'Users',
+                href: '/admin/management/users',
+                icon: Target,
+            },
+        ],
+    },
+];
 </script>
 
 <template>
@@ -59,6 +85,7 @@ const navItem2: NavItem[] = [
         <SidebarContent>
             <NavMain group-label="Test" :items="mainNavItems" />
             <NavMain collapsible :items="navItem2" />
+            <NavMain collapsible :items="navItem3" />
         </SidebarContent>
 
         <SidebarFooter>

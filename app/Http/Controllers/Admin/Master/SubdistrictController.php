@@ -10,7 +10,10 @@ use App\Http\Controllers\Controller;
 class SubdistrictController extends Controller
 {
     /**
-     * Handle the incoming request.
+     * __invoke
+     *
+     * @param  mixed $request
+     * @return void
      */
     public function __invoke(Request $request)
     {

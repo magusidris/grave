@@ -19,6 +19,12 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->name('admin.')->group(
         Route::get('cities', \App\Http\Controllers\Admin\Master\CityController::class)->name('city.index');
 
         Route::get('subdistricts', \App\Http\Controllers\Admin\Master\SubdistrictController::class)->name('subdistrict.index');
+
+        Route::get('titles', \App\Http\Controllers\Admin\Master\TitleController::class)->name('title.index');
+
+        Route::get('identities', \App\Http\Controllers\Admin\Master\IdentityController::class)->name('identity.index');
+
+        Route::get('relationships', \App\Http\Controllers\Admin\Master\RelationshipController::class)->name('relationship.index');
     });
 });
 

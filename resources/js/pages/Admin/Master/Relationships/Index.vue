@@ -3,7 +3,7 @@
         <Head title="Dashboard" />
         <div class="p-4">
             <div class="flex h-full flex-col space-y-6">
-                <HeadingSmall title="Identities" description="Manage your identities" />
+                <HeadingSmall title="Relationships" description="Manage your relationships" />
                 <div class="h-[29rem]">
                     <form @submit.prevent="handleSearch">
                         <div class="mb-4 flex w-full items-center">
@@ -20,7 +20,7 @@
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            <TableRow v-for="(identity, id) in identities.data" :key="id">
+                            <TableRow v-for="(identity, id) in relationships.data" :key="id">
                                 <TableCell class="font-medium">
                                     {{ identity.name }}
                                 </TableCell>
@@ -33,11 +33,11 @@
                 </div>
                 <div class="flex justify-end">
                     <Pagination
-                        :links="identities.links"
-                        :prev="identities.prev_page_url"
-                        :next="identities.next_page_url"
-                        :current="identities.current_page"
-                        :last="identities.last_page"
+                        :links="relationships.links"
+                        :prev="relationships.prev_page_url"
+                        :next="relationships.next_page_url"
+                        :current="relationships.current_page"
+                        :last="relationships.last_page"
                     />
                 </div>
             </div>
@@ -53,14 +53,14 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import AppLayout from '@/layouts/AppLayout.vue';
-import { type BreadcrumbItem, type Identity } from '@/types';
+import { type BreadcrumbItem, type Relationship } from '@/types';
 import { Head, router, usePage } from '@inertiajs/vue3';
 import { ref } from 'vue';
 
 const page = usePage();
 
 const props = defineProps<{
-    identities: Identity[];
+    relationships: Relationship[];
     errors: Object;
 }>();
 
@@ -68,7 +68,7 @@ const search = ref(new URL(document.location).searchParams.get('q'));
 
 const handleSearch = () => {
     router.get(
-        route('admin.master.identities.index'),
+        route('admin.master.relationships.index'),
         {
             q: search.value !== null ? search.value : '',
         },
@@ -88,8 +88,8 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: '#',
     },
     {
-        title: 'Identities',
-        href: '/admin/master/identities',
+        title: 'Relationships',
+        href: '/admin/master/relationships',
     },
 ];
 </script>

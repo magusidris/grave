@@ -17,12 +17,12 @@ class PaymentMethodController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $paymentMethods = MasterPaymentMethod::when($request->q, function ($query) use ($request) {
+        $payments = MasterPaymentMethod::when($request->q, function ($query) use ($request) {
             $query->where('name', 'like', '%' . $request->q . '%');
         })->paginate(10)->withQueryString();
 
-        return Inertia::render('Admin/Master/PaymentMethods/Index', [
-            'paymentMethods' => fn() => $paymentMethods
+        return Inertia::render('Admin/Master/Payments/Index', [
+            'payments' => fn() => $payments
         ]);
     }
 }

@@ -28,6 +28,15 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->name('admin.')->group(
 
         Route::get('payments', \App\Http\Controllers\Admin\Master\PaymentMethodController::class)->name('payments.index');
     });
+
+    Route::prefix('management')->name('management.')->group(function () {
+
+        Route::resource('roles', \App\Http\Controllers\Admin\Management\RoleController::class);
+
+        Route::resource('permissions', \App\Http\Controllers\Admin\Management\PermissionController::class);
+
+        Route::resource('users', \App\Http\Controllers\Admin\Management\UserController::class);
+    });
 });
 
 require __DIR__ . '/settings.php';

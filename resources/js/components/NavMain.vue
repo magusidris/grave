@@ -21,6 +21,8 @@ defineProps<{
 }>();
 
 const page = usePage();
+
+console.log(page.url);
 </script>
 
 <template>
@@ -37,7 +39,14 @@ const page = usePage();
                     </SidebarMenuButton>
                 </SidebarMenuItem>
             </template>
-            <Collapsible v-else v-for="item in items" :key="item.title" as-child :default-open="item.isActive" class="group/collapsible">
+            <Collapsible
+                v-else
+                v-for="item in items"
+                :key="item.title"
+                as-child
+                :default-open="item.items.some((child) => $page.url.startsWith(child.href))"
+                class="group/collapsible"
+            >
                 <SidebarMenuItem>
                     <CollapsibleTrigger as-child>
                         <SidebarMenuButton :tooltip="item.title">

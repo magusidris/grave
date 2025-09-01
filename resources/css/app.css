@@ -164,4 +164,17 @@
     body {
         @apply bg-background text-foreground;
     }
+
+    .iziToast.iziToast-animateInside .iziToast-title,
+    .iziToast.iziToast-animateInside .iziToast-message,
+    .iziToast.iziToast-animateInside .iziToast-icon,
+    .iziToast.iziToast-animateInside .iziToast-buttons-child,
+    .iziToast.iziToast-animateInside .iziToast-inputs-child {
+        opacity: 1 !important;
+    }
+
+    .iziToast-icon {
+        width: 20px !important;
+        height: 20px !important;
+    }
 }

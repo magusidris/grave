@@ -126,15 +126,22 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 const handleConfirmDelete = (id: number) => {
-    router.delete(route('admin.management.roles.destroy', id), {
-        preserveState: true,
-        onSuccess: () => {
-            iziToast.success({
-                title: 'Success',
-                message: 'Role deleted successfully.',
-            });
-        },
+    iziToast.show({
+        title: 'Success',
+        theme: 'dark',
+        icon: 'fa-solid fa-check',
+        progressBarColor: 'rgb(0, 255, 184)',
+        message: 'Role deleted successfully.',
     });
+    // router.delete(route('admin.management.roles.destroy', id), {
+    //     preserveState: true,
+    //     onSuccess: () => {
+    //         iziToast.success({
+    //             title: 'Success',
+    //             message: 'Role deleted successfully.',
+    //         });
+    //     },
+    // });
 };
 </script>
 

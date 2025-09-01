@@ -3,12 +3,12 @@
         <Head title="Dashboard" />
         <div class="p-4">
             <div class="flex h-full flex-col space-y-6">
-                <HeadingSmall title="Role Management" description="Manage your roles" />
-                <div class="h-[29rem]">
+                <HeadingSmall title="User Management" description="Manage your Users" />
+                <div>
                     <form @submit.prevent="handleSearch">
                         <div class="mb-4 flex w-full items-center">
-                            <Button class="h-10 w-27 rounded-r-none bg-teal-600 uppercase hover:bg-teal-700"
-                                ><Icon code="fa6-solid:plus" /> New
+                            <Button class="h-10 w-27 rounded-r-none bg-teal-600 uppercase hover:bg-teal-700" as-child
+                                ><Link href="/admin/management/users/create"><Icon code="fa6-solid:plus" /> New</Link>
                             </Button>
                             <Input v-model="search" class="h-10 rounded-none" id="search" type="text" placeholder="Search" />
                             <Button class="h-10 w-27 rounded-l-none bg-teal-600 uppercase hover:bg-teal-700" type="submit">
@@ -20,24 +20,40 @@
                         <!-- <TableCaption>A list of your recent invoices.</TableCaption> -->
                         <TableHeader>
                             <TableRow>
-                                <TableHead class="w-[25em]"> Name </TableHead>
-                                <TableHead> Permissions </TableHead>
-                                <TableHead class="w-[20em]"> Actions </TableHead>
+                                <TableHead> Name </TableHead>
+                                <TableHead> Email Address </TableHead>
+                                <TableHead> Roles </TableHead>
+                                <TableHead class="w-[20em] text-center"> Actions </TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            <TableRow v-for="(role, id) in roles.data" :key="id">
+                            <TableRow v-for="(value, id) in users.data" :key="id">
                                 <TableCell class="content-start text-start text-base">
-                                    {{ role.name }}
+                                    {{ value.name }}
                                 </TableCell>
-                                <TableCell class="flex flex-wrap gap-2 px-8">
-                                    <Badge v-for="(value, id) in role.permissions" :key="id">
-                                        {{ value.name }}
-                                    </Badge>
+                                <TableCell class="content-start">
+                                    {{ value.email }}
+                                </TableCell>
+                                <TableCell class="content-start">
+                                    {{ value.roles[0].name }}
                                 </TableCell>
                                 <TableCell class="content-start text-center">
-                                    <Button class="mr-2 bg-green-600 hover:bg-green-700" size="sm"><Icon code="fa6-solid:pencil" /> Edit </Button>
-                                    <Button class="bg-red-600 hover:bg-red-700" size="sm"><Icon code="fa6-solid:trash" /> Delete </Button>
+                                    <Button class="mr-2 bg-green-600 hover:bg-green-700" size="sm" as-child
+                                        ><Link :href="`/admin/management/users/${value.id}/edit`">
+                                            <Icon code="fa6-solid:pencil" /> Edit
+                                        </Link></Button
+                                    >
+                                    <AlertDialog
+                                        @confirm="handleConfirmDelete(value)"
+                                        iconTrigger="fa6-solid:trash"
+                                        textTrigger="Delete"
+                                        title="Yakin hapus peran ini?"
+                                        description="Peran ini akan dihapus secara permanen."
+                                        cancelText="Batal"
+                                        confirmText="Hapus"
+                                        type="warning"
+                                    >
+                                    </AlertDialog>
                                 </TableCell>
                             </TableRow>
                         </TableBody>
@@ -45,11 +61,11 @@
                 </div>
                 <div class="flex justify-end">
                     <Pagination
-                        :links="roles.links"
-                        :prev="roles.prev_page_url"
-                        :next="roles.next_page_url"
-                        :current="roles.current_page"
-                        :last="roles.last_page"
+                        :links="users.links"
+                        :prev="users.prev_page_url"
+                        :next="users.next_page_url"
+                        :current="users.current_page"
+                        :last="users.last_page"
                     />
                 </div>
             </div>
@@ -58,23 +74,26 @@
 </template>
 
 <script setup lang="ts">
+import AlertDialog from '@/components/AlertDialog.vue';
 import HeadingSmall from '@/components/HeadingSmall.vue';
 import Icon from '@/components/Icon.vue';
 import Pagination from '@/components/Pagination.vue';
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import iziToast from 'izitoast';
 
 import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem, type Identity } from '@/types';
-import { Head, router, usePage } from '@inertiajs/vue3';
+import { Head, Link, router, usePage } from '@inertiajs/vue3';
 import { ref } from 'vue';
+
+import 'izitoast/dist/css/iziToast.min.css';
 
 const page = usePage();
 
 const props = defineProps<{
-    roles: Identity[];
+    users: Identity[];
     errors: Object;
 }>();
 
@@ -82,7 +101,7 @@ const search = ref(new URL(document.location).searchParams.get('q'));
 
 const handleSearch = () => {
     router.get(
-        route('admin.management.roles.index'),
+        route('admin.management.users.index'),
         {
             q: search.value !== null ? search.value : '',
         },
@@ -102,10 +121,25 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: '#',
     },
     {
-        title: 'Role Users',
-        href: '/admin/management/roles',
+        title: 'User Management',
+        href: '/admin/management/users',
     },
 ];
+
+const handleConfirmDelete = (user: Identity) => {
+    router.delete(route('admin.management.users.destroy', user.id), {
+        preserveState: true,
+        onSuccess: () => {
+            iziToast.show({
+                title: 'Success',
+                theme: 'dark',
+                icon: 'fa-solid fa-check',
+                progressBarColor: 'rgb(0, 255, 184)',
+                message: `User ${user.name} deleted successfully.`,
+            });
+        },
+    });
+};
 </script>
 
 <style scoped></style>

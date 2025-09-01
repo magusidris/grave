@@ -19,7 +19,7 @@ class UserController extends Controller
         //get users
         $users = User::when(request()->q, function ($users) {
             $users = $users->where('name', 'like', '%' . request()->q . '%');
-        })->latest()->paginate(7)->withQueryString();
+        })->with('roles')->latest()->paginate(7)->withQueryString();
 
         //return inertia
         return Inertia::render('Admin/Management/Users/Index', [

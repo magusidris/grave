@@ -35,7 +35,9 @@
                                     {{ value.email }}
                                 </TableCell>
                                 <TableCell class="content-start">
-                                    {{ value.roles[0].name }}
+                                    <Badge variant="secondary">
+                                        {{ value.roles[0].name }}
+                                    </Badge>
                                 </TableCell>
                                 <TableCell class="content-start text-center">
                                     <Button class="mr-2 bg-green-600 hover:bg-green-700" size="sm" as-child
@@ -78,6 +80,7 @@ import AlertDialog from '@/components/AlertDialog.vue';
 import HeadingSmall from '@/components/HeadingSmall.vue';
 import Icon from '@/components/Icon.vue';
 import Pagination from '@/components/Pagination.vue';
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';

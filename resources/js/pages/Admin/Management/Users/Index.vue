@@ -7,11 +7,11 @@
                 <div class="h-[29rem]">
                     <form @submit.prevent="handleSearch">
                         <div class="mb-4 flex w-full items-center">
-                            <Button class="h-12 w-27 rounded-r-none bg-teal-600 uppercase hover:bg-teal-700"
+                            <Button class="h-10 w-27 rounded-r-none bg-teal-600 uppercase hover:bg-teal-700"
                                 ><Icon code="fa6-solid:plus" /> New
                             </Button>
-                            <Input v-model="search" class="h-12 rounded-none" id="search" type="text" placeholder="Search" />
-                            <Button class="h-12 w-27 rounded-l-none bg-teal-600 uppercase hover:bg-teal-700" type="submit">
+                            <Input v-model="search" class="h-10 rounded-none" id="search" type="text" placeholder="Search" />
+                            <Button class="h-10 w-27 rounded-l-none bg-teal-600 uppercase hover:bg-teal-700" type="submit">
                                 <Icon code="heroicons:magnifying-glass-16-solid" /> Cari
                             </Button>
                         </div>

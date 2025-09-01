@@ -54,20 +54,22 @@ import { type BreadcrumbItem } from '@/types';
 import { Head, Link, useForm, usePage } from '@inertiajs/vue3';
 
 const onSubmit = () => {
-    form.post('/admin/management/roles', {
+    form.post(`/admin/management/roles/${props.role.id}`, {
         onSuccess: () => form.reset(),
     });
 };
 const page = usePage();
 
-defineProps<{
+const props = defineProps<{
     permissions: Array;
+    role: Object;
     errors: Object;
 }>();
 
 const form = useForm({
-    name: '',
-    permissions: [],
+    _method: 'PATCH',
+    name: props.role.name,
+    permissions: props.role.permissions.map((obj) => obj.name),
 });
 
 const breadcrumbs: BreadcrumbItem[] = [

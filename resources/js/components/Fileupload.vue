@@ -41,7 +41,7 @@ function handleFileChange(e) {
             // set state "newValue" to null
             newValue.value = null;
             emit('update:modelValue', '');
-            console.log(e.target.value);
+            // console.log(e.target.value);
         } else {
             newValue.value = reader.readAsDataURL(image) || '';
 

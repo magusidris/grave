@@ -1,5 +1,5 @@
 <template>
-    <Icon :icon="code" :height="size" />
+    <Icon :icon="code" :height="size" :class="class" />
 </template>
 
 <script setup lang="ts">
@@ -7,6 +7,7 @@ import { Icon } from '@iconify/vue';
 defineProps({
     code: { type: String, default: 'fa-solid:plus' },
     size: { type: String },
+    class: { type: String },
 });
 </script>
 

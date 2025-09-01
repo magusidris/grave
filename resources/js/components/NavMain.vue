@@ -21,8 +21,6 @@ defineProps<{
 }>();
 
 const page = usePage();
-
-console.log(page.url);
 </script>
 
 <template>

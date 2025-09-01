@@ -20,7 +20,7 @@ class RoleController extends Controller
         // get roles
         $roles = Role::when(\request()->q, function ($roles) {
             $roles = $roles->where('name', 'like', '%' . \request()->q . '%');
-        })->with('permissions')->latest()->paginate(5)->withQueryString();
+        })->orderBy('id')->with('permissions')->latest()->paginate(5)->withQueryString();
 
         // render with inertia
         return Inertia::render('Admin/Management/Roles/Index', [

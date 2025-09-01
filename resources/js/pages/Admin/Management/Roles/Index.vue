@@ -31,7 +31,7 @@
                                     {{ role.name }}
                                 </TableCell>
                                 <TableCell class="flex flex-wrap gap-2 px-8">
-                                    <Badge v-for="(value, id) in role.permissions" :key="id">
+                                    <Badge variant="secondary" v-for="(value, id) in role.permissions" :key="id">
                                         {{ value.name }}
                                     </Badge>
                                 </TableCell>

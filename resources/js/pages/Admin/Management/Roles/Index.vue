@@ -42,7 +42,7 @@
                                         </Link></Button
                                     >
                                     <AlertDialog
-                                        @confirm="handleConfirmDelete(role.id)"
+                                        @confirm="handleConfirmDelete(role)"
                                         iconTrigger="fa6-solid:trash"
                                         textTrigger="Delete"
                                         title="Yakin hapus peran ini?"
@@ -125,23 +125,19 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-const handleConfirmDelete = (id: number) => {
-    iziToast.show({
-        title: 'Success',
-        theme: 'dark',
-        icon: 'fa-solid fa-check',
-        progressBarColor: 'rgb(0, 255, 184)',
-        message: 'Role deleted successfully.',
+const handleConfirmDelete = (role: Identity) => {
+    router.delete(route('admin.management.roles.destroy', role.id), {
+        preserveState: true,
+        onSuccess: () => {
+            iziToast.show({
+                title: 'Success',
+                theme: 'dark',
+                icon: 'fa-solid fa-check',
+                progressBarColor: 'rgb(0, 255, 184)',
+                message: `Role ${role.name} deleted successfully.`,
+            });
+        },
     });
-    // router.delete(route('admin.management.roles.destroy', id), {
-    //     preserveState: true,
-    //     onSuccess: () => {
-    //         iziToast.success({
-    //             title: 'Success',
-    //             message: 'Role deleted successfully.',
-    //         });
-    //     },
-    // });
 };
 </script>
 

@@ -37,7 +37,7 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->name('admin.')->group(
 
         Route::resource('users', \App\Http\Controllers\Admin\Management\UserController::class);
     });
-});
 
-require __DIR__ . '/settings.php';
+    require __DIR__ . '/settings.php';
+});
 require __DIR__ . '/auth.php';

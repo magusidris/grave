@@ -8,16 +8,15 @@
                     <div class="flex w-full flex-col gap-4 xl:flex-row">
                         <div class="grid w-full items-center gap-1.5">
                             <Label for="name">User Name</Label>
-                            <Input
-                                id="name"
-                                ref="name"
-                                v-model="form.name"
-                                type="text"
-                                class="mt-1 block w-full"
-                                autocomplete="title"
-                                placeholder="User Name"
-                            />
-                            <InputError class="mt-2" :message="form.errors.name" />
+                            <div class="relative w-full items-center">
+                                <Input v-model="form.name" class="pl-55" id="name" type="text" placeholder="User Name" />
+                                <Combobox
+                                    class="absolute inset-y-0 start-0 h-9 rounded-r-none"
+                                    v-model="form.title"
+                                    :items="titles"
+                                    placeholder="Select title"
+                                />
+                            </div>
                         </div>
                         <div class="grid w-full items-center gap-1.5">
                             <Label for="email">Email Address</Label>
@@ -78,6 +77,7 @@
 </template>
 
 <script setup lang="ts">
+import Combobox from '@/components/Combobox.vue';
 import HeadingSmall from '@/components/HeadingSmall.vue';
 import InputError from '@/components/InputError.vue';
 import { Button } from '@/components/ui/button';
@@ -94,11 +94,13 @@ const onSubmit = () => {
 const page = usePage();
 
 defineProps<{
+    titles: Array;
     roles: Array;
     errors: Object;
 }>();
 
 const form = useForm({
+    title: '',
     name: '',
     email: '',
     password: '',

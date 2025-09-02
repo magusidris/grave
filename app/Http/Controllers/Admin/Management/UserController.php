@@ -7,6 +7,7 @@ use Inertia\Inertia;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
+use App\Models\MasterTitle;
 
 class UserController extends Controller
 {
@@ -35,11 +36,13 @@ class UserController extends Controller
      */
     public function create()
     {
+        $titles = MasterTitle::all();
         //get roles
         $roles = Role::all();
 
         //return inertia
         return Inertia::render('Admin/Management/Users/Create', [
+            'titles' => $titles,
             'roles' => $roles
         ]);
     }

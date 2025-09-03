@@ -1,9 +1,9 @@
 <template>
     <AppLayout :breadcrumbs="breadcrumbs">
-        <Head title="Dashboard" />
+        <Head :title="info.title" />
         <div class="p-4">
             <div class="flex h-full flex-col space-y-6">
-                <HeadingSmall title="Permission Management" description="Manage your permissions" />
+                <HeadingSmall :title="info.title" :description="info.description" />
                 <div>
                     <form @submit.prevent="handleSearch">
                         <div class="mb-4 flex w-full items-center">
@@ -86,7 +86,7 @@ const page = usePage();
 
 const props = defineProps<{
     permissions: Identity[];
-    errors: Object;
+    errors: object;
 }>();
 
 const search = ref(new URL(document.location).searchParams.get('q'));
@@ -102,6 +102,8 @@ const handleSearch = () => {
         },
     );
 };
+
+const info = { title: 'Manage Permissions', description: 'Manage user permissions' };
 
 const breadcrumbs: BreadcrumbItem[] = [
     {

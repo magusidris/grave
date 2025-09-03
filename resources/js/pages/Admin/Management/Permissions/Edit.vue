@@ -1,9 +1,9 @@
 <template>
     <AppLayout :breadcrumbs="breadcrumbs">
-        <Head title="Dashboard" />
+        <Head :title="info.title" />
         <div class="p-4">
             <div class="flex h-full flex-col space-y-6">
-                <HeadingSmall title="Create Category" description="Create a new category" />
+                <HeadingSmall :title="info.title" :description="info.description" />
                 <form class="space-y-7" @submit.prevent="onSubmit">
                     <div>
                         <Label for="name">Permission Name</Label>
@@ -61,14 +61,16 @@ const onSubmit = () => {
 const page = usePage();
 
 const props = defineProps<{
-    permission: Object;
-    errors: Object;
+    permission: object;
+    errors: object;
 }>();
 
 const form = useForm({
     _method: 'PATCH',
     name: props.permission.name,
 });
+
+const info = { title: 'Edit Permission', description: 'Edit an existing permission' };
 
 const breadcrumbs: BreadcrumbItem[] = [
     {

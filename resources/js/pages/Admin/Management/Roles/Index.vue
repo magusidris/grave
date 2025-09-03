@@ -1,9 +1,9 @@
 <template>
     <AppLayout :breadcrumbs="breadcrumbs">
-        <Head title="Dashboard" />
+        <Head :title="info.title" />
         <div class="p-4">
             <div class="flex h-full flex-col space-y-6">
-                <HeadingSmall title="Role Management" description="Manage your roles" />
+                <HeadingSmall :title="info.title" :description="info.description" />
                 <div>
                     <form @submit.prevent="handleSearch">
                         <div class="mb-4 flex w-full items-center">
@@ -93,7 +93,7 @@ const page = usePage();
 
 const props = defineProps<{
     roles: Identity[];
-    errors: Object;
+    errors: object;
 }>();
 
 const search = ref(new URL(document.location).searchParams.get('q'));
@@ -109,6 +109,8 @@ const handleSearch = () => {
         },
     );
 };
+
+const info = { title: 'Role Management', description: 'Manage your Roles' };
 
 const breadcrumbs: BreadcrumbItem[] = [
     {

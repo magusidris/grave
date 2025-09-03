@@ -1,9 +1,9 @@
 <template>
     <AppLayout :breadcrumbs="breadcrumbs">
-        <Head title="Dashboard" />
+        <Head :title="info.title" />
         <div class="p-4">
             <div class="flex h-full flex-col space-y-6">
-                <HeadingSmall title="Create Category" description="Create a new category" />
+                <HeadingSmall :title="info.title" :description="info.description" />
                 <form class="space-y-7" @submit.prevent="onSubmit">
                     <div>
                         <Label for="name">Role Name</Label>
@@ -62,13 +62,15 @@ const page = usePage();
 
 defineProps<{
     permissions: Array;
-    errors: Object;
+    errors: object;
 }>();
 
 const form = useForm({
     name: '',
     permissions: [],
 });
+
+const info = { title: 'Create Role', description: 'Create a new role' };
 
 const breadcrumbs: BreadcrumbItem[] = [
     {

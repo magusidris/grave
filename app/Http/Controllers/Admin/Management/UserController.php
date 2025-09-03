@@ -59,8 +59,10 @@ class UserController extends Controller
          * Validate request
          */
         $request->validate([
+            'title'    => 'required',
             'name'     => 'required',
             'email'    => 'required|unique:users',
+            'phone'    => 'required',
             'password' => 'required|confirmed'
         ]);
 
@@ -68,8 +70,10 @@ class UserController extends Controller
          * Create user
          */
         $user = User::create([
+            'title_id' => $request->title['id'],
             'name'     => $request->name,
             'email'    => $request->email,
+            'phone'    => $request->phone,
             'password' => bcrypt($request->password)
         ]);
 
@@ -77,7 +81,7 @@ class UserController extends Controller
         $user->assignRole($request->roles);
 
         //redirect
-        return redirect()->route('apps.users.index');
+        return redirect()->route('admin.management.users.index');
     }
 
     /**
@@ -88,14 +92,18 @@ class UserController extends Controller
      */
     public function edit($id)
     {
+        //get titles
+        $titles = MasterTitle::all();
+
         //get user
-        $user = User::with('roles')->findOrFail($id);
+        $user = User::with('title', 'roles')->findOrFail($id);
 
         //get roles
         $roles = Role::all();
 
         //return inertia
         return Inertia::render('Admin/Management/Users/Edit', [
+            'titles' => $titles,
             'user' => $user,
             'roles' => $roles
         ]);
@@ -115,8 +123,10 @@ class UserController extends Controller
          * validate request
          */
         $request->validate([
+            'title'    => 'required',
             'name'     => 'required',
             'email'    => 'required|unique:users,email,' . $user->id,
+            'phone'    => 'required|unique:users,phone,' . $user->id,
             'password' => 'nullable|confirmed'
         ]);
 
@@ -126,14 +136,18 @@ class UserController extends Controller
         if ($request->password == '') {
 
             $user->update([
+                'title_id' => $request->title['id'],
                 'name'     => $request->name,
-                'email'    => $request->email
+                'email'    => $request->email,
+                'phone'    => $request->phone
             ]);
         } else {
 
             $user->update([
+                'title_id' => $request->title['id'],
                 'name'     => $request->name,
                 'email'    => $request->email,
+                'phone'    => $request->phone,
                 'password' => bcrypt($request->password)
             ]);
         }
@@ -142,7 +156,7 @@ class UserController extends Controller
         $user->syncRoles($request->roles);
 
         //redirect
-        return redirect()->route('apps.users.index');
+        return redirect()->route('admin.management.users.index');
     }
 
     /**
@@ -160,6 +174,6 @@ class UserController extends Controller
         $user->delete();
 
         //redirect
-        return redirect()->route('apps.users.index');
+        return redirect()->route('admin.management.users.index');
     }
 }

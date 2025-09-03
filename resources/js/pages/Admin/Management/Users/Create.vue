@@ -1,53 +1,83 @@
 <template>
     <AppLayout :breadcrumbs="breadcrumbs">
-        <Head title="Dashboard" />
+        <Head :title="info.title" />
         <div class="p-4">
             <div class="flex h-full flex-col space-y-6">
-                <HeadingSmall title="Create User" description="Create a new user" />
+                <HeadingSmall :title="info.title" :description="info.description" />
                 <form class="space-y-7" @submit.prevent="onSubmit">
                     <div class="flex w-full flex-col gap-4 xl:flex-row">
-                        <div class="grid w-full items-center gap-1.5">
-                            <Label for="name">User Name</Label>
-                            <div class="relative w-full items-center">
-                                <Input v-model="form.name" class="pl-55" id="name" type="text" placeholder="User Name" />
-                                <Combobox
-                                    class="absolute inset-y-0 start-0 h-9 rounded-r-none"
-                                    v-model="form.title"
-                                    :items="titles"
-                                    placeholder="Select title"
-                                />
+                        <div class="w-full">
+                            <div class="grid w-full items-center gap-1.5">
+                                <Label for="name">User Name</Label>
+                                <div class="mt-1 flex w-full items-center">
+                                    <Combobox
+                                        class="inset-y-0 start-0 w-30 rounded-r-none"
+                                        v-model="form.title"
+                                        :items="titles"
+                                        placeholder="Select title"
+                                    />
+                                    <Input v-model="form.name" class="rounded-l-none" id="name" type="text" placeholder="User Name" />
+                                </div>
+                                <div class="flex">
+                                    <InputError
+                                        class="mt-2"
+                                        :class="form.errors.name ? 'mr-3 flex' : 'whitespace-nowrap'"
+                                        :message="form.errors.title"
+                                    />
+                                    <InputError class="mt-2" :message="form.errors.name" />
+                                </div>
                             </div>
                         </div>
-                        <div class="grid w-full items-center gap-1.5">
-                            <Label for="email">Email Address</Label>
-                            <Input
-                                id="email"
-                                ref="email"
-                                v-model="form.email"
-                                type="text"
-                                class="mt-1 block w-full"
-                                autocomplete="email"
-                                placeholder="Email Address"
-                            />
+                        <div class="w-full">
+                            <div class="grid w-full items-center gap-1.5">
+                                <Label for="email">Email Address</Label>
+                                <Input
+                                    id="email"
+                                    ref="email"
+                                    v-model="form.email"
+                                    type="text"
+                                    class="mt-1 block"
+                                    autocomplete="email"
+                                    placeholder="Email Address"
+                                />
+                            </div>
                             <InputError class="mt-2" :message="form.errors.email" />
                         </div>
                     </div>
                     <div class="flex w-full flex-col gap-4 xl:flex-row">
-                        <div class="grid w-full items-center gap-1.5">
-                            <Label for="password">Password</Label>
-                            <Input id="password" ref="password" v-model="form.password" type="password" class="mt-1 block w-full" />
+                        <div class="w-full">
+                            <div class="grid w-full items-center gap-1.5">
+                                <Label for="phone">Phone</Label>
+                                <Input
+                                    id="phone"
+                                    ref="phone"
+                                    v-model="form.phone"
+                                    type="text"
+                                    class="mt-1 block"
+                                    autocomplete="phone"
+                                    placeholder="Phone Number"
+                                />
+                            </div>
+                            <InputError class="mt-2" :message="form.errors.phone" />
+                        </div>
+                        <div class="w-full">
+                            <div class="grid w-full items-center gap-1.5">
+                                <Label for="password">Password</Label>
+                                <Input id="password" ref="password" v-model="form.password" type="password" class="mt-1 block w-full" />
+                            </div>
                             <InputError class="mt-2" :message="form.errors.password" />
                         </div>
-                        <div class="grid w-full items-center gap-1.5">
-                            <Label for="password_confirmation">Password Confirmation</Label>
-                            <Input
-                                id="password_confirmation"
-                                ref="password_confirmation"
-                                v-model="form.password_confirmation"
-                                type="password"
-                                class="mt-1 block w-full"
-                            />
-                            <InputError class="mt-2" :message="form.errors.password_confirmation" />
+                        <div class="w-full">
+                            <div class="grid w-full items-center gap-1.5">
+                                <Label for="password_confirmation">Password Confirmation</Label>
+                                <Input
+                                    id="password_confirmation"
+                                    ref="password_confirmation"
+                                    v-model="form.password_confirmation"
+                                    type="password"
+                                    class="mt-1 block w-full"
+                                />
+                            </div>
                         </div>
                     </div>
                     <hr />
@@ -96,17 +126,20 @@ const page = usePage();
 defineProps<{
     titles: Array;
     roles: Array;
-    errors: Object;
+    errors: object;
 }>();
 
 const form = useForm({
     title: '',
     name: '',
     email: '',
+    phone: '',
     password: '',
     password_confirmation: '',
     roles: [],
 });
+
+const info = { title: 'Create User', description: 'Create a new user' };
 
 const breadcrumbs: BreadcrumbItem[] = [
     {

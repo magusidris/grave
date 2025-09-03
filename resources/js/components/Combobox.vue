@@ -48,7 +48,7 @@ const modelValue = useVModel(props, 'modelValue', emits, {
         </ComboboxAnchor>
 
         <ComboboxList>
-            <div class="relative w-full max-w-sm items-center">
+            <div class="relative items-center">
                 <ComboboxInput class="h-10 rounded-none border-0 border-b pl-1 focus-visible:ring-0" :placeholder="`${props.placeholder}...`" />
                 <span class="absolute inset-y-0 start-0 flex items-center justify-center px-3">
                     <Search class="size-4 text-muted-foreground" />

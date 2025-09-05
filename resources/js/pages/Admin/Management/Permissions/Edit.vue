@@ -58,7 +58,7 @@ const onSubmit = () => {
         onSuccess: () => form.reset(),
     });
 };
-const page = usePage();
+usePage();
 
 const props = defineProps<{
     permission: object;

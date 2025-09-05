@@ -82,22 +82,22 @@ import { type BreadcrumbItem, type Cluster } from '@/types';
 import { Head, Link, router, usePage } from '@inertiajs/vue3';
 
 import iziToast from 'izitoast';
-import { ref } from 'vue';
 
 import 'izitoast/dist/css/iziToast.min.css';
+import { ref } from 'vue';
 
-const page = usePage();
+usePage();
 
-const props = defineProps<{
+defineProps<{
     clusters: Cluster[];
     errors: object;
 }>();
 
-const search = ref(new URL(document.location).searchParams.get('q'));
+const search = ref(new URL(window.location.href).searchParams.get('q'));
 
 const handleSearch = () => {
     router.get(
-        route('admin.master.clusters.index'),
+        route('admin.products.clusters.index'),
         {
             q: search.value !== null ? search.value : '',
         },

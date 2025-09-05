@@ -17,7 +17,7 @@ const mainNavItems: NavItem[] = [
 
 const navItem2: NavItem[] = [
     {
-        title: 'Master',
+        title: 'Master Data',
         href: '/master',
         icon: LayoutGrid,
         isActive: true,
@@ -63,6 +63,37 @@ const navItem2: NavItem[] = [
 
 const navItem3: NavItem[] = [
     {
+        title: 'Products',
+        href: '/products',
+        icon: LayoutGrid,
+        isActive: true,
+        items: [
+            {
+                title: 'Clusters',
+                href: '/admin/products/clusters',
+                icon: Target,
+            },
+            {
+                title: 'Blocks',
+                href: '/admin/products/blocks',
+                icon: Target,
+            },
+            {
+                title: 'Types',
+                href: '/admin/products/types',
+                icon: Target,
+            },
+            {
+                title: 'Graves',
+                href: '/admin/products/graves',
+                icon: Target,
+            },
+        ],
+    },
+];
+
+const navItem4: NavItem[] = [
+    {
         title: 'User Management',
         href: '/management',
         icon: LayoutGrid,
@@ -106,6 +137,7 @@ const navItem3: NavItem[] = [
             <NavMain group-label="Test" :items="mainNavItems" />
             <NavMain collapsible :items="navItem2" />
             <NavMain collapsible :items="navItem3" />
+            <NavMain collapsible :items="navItem4" />
         </SidebarContent>
 
         <SidebarFooter>

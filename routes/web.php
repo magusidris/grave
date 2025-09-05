@@ -38,7 +38,7 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->name('admin.')->group(
         Route::resource('users', \App\Http\Controllers\Admin\Management\UserController::class);
     });
 
-    Route::prefix('products')->name('products')->group(function () {
+    Route::prefix('products')->name('products.')->group(function () {
 
         Route::resource('clusters', \App\Http\Controllers\Admin\Products\ClusterController::class);
 

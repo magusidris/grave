@@ -100,7 +100,7 @@ const props = defineProps<{
     errors: object;
 }>();
 
-const search = ref(new URL(document.location).searchParams.get('q'));
+const search = ref(new URL(window.location.href).searchParams.get('q'));
 
 const handleSearch = () => {
     router.get(

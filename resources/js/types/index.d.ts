@@ -48,6 +48,14 @@ export interface SubdistrictResource {
     updated_at: DateTime;
 }
 
+export interface Cluster {
+    id: number;
+    name: string;
+    description: string | null;
+    created_at: DateTime;
+    updated_at: DateTime;
+}
+
 export type AppPageProps<T extends Record<string, unknown> = Record<string, unknown>> = T & {
     name: string;
     quote: { message: string; author: string };

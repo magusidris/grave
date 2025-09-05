@@ -38,6 +38,15 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->name('admin.')->group(
         Route::resource('users', \App\Http\Controllers\Admin\Management\UserController::class);
     });
 
+    Route::prefix('products')->name('products')->group(function () {
+
+        Route::resource('clusters', \App\Http\Controllers\Admin\Products\ClusterController::class);
+
+        Route::resource('blocks', \App\Http\Controllers\Admin\Products\BlockController::class);
+
+        Route::resource('types', \App\Http\Controllers\Admin\Products\TypeController::class);
+    });
+
     require __DIR__ . '/settings.php';
 });
 require __DIR__ . '/auth.php';

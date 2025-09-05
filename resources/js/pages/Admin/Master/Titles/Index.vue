@@ -1,9 +1,9 @@
 <template>
     <AppLayout :breadcrumbs="breadcrumbs">
-        <Head title="Dashboard" />
+        <Head :title="info.title" />
         <div class="p-4">
             <div class="flex h-full flex-col space-y-6">
-                <HeadingSmall title="Titles" description="Manage your titles" />
+                <HeadingSmall :title="info.title" :description="info.description" />
                 <div class="h-[29rem]">
                     <form @submit.prevent="handleSearch">
                         <div class="mb-4 flex w-full items-center">
@@ -21,15 +21,15 @@
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            <TableRow v-for="(title, id) in titles.data" :key="id">
+                            <TableRow v-for="(value, id) in titles.data" :key="id">
                                 <TableCell class="font-medium">
-                                    {{ title.name }}
+                                    {{ value.name }}
                                 </TableCell>
                                 <TableCell class="capitalize">
-                                    {{ title.gender }}
+                                    {{ value.gender }}
                                 </TableCell>
                                 <TableCell>
-                                    {{ title.description }}
+                                    {{ value.description }}
                                 </TableCell>
                             </TableRow>
                         </TableBody>
@@ -65,7 +65,7 @@ const page = usePage();
 
 const props = defineProps<{
     titles: Title[];
-    errors: Object;
+    errors: object;
 }>();
 
 const search = ref(new URL(document.location).searchParams.get('q'));
@@ -81,6 +81,8 @@ const handleSearch = () => {
         },
     );
 };
+
+const info = { title: 'Titles', description: 'Manage Master Titles' };
 
 const breadcrumbs: BreadcrumbItem[] = [
     {

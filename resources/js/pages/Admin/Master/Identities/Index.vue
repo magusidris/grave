@@ -1,9 +1,9 @@
 <template>
     <AppLayout :breadcrumbs="breadcrumbs">
-        <Head title="Dashboard" />
+        <Head :title="info.title" />
         <div class="p-4">
             <div class="flex h-full flex-col space-y-6">
-                <HeadingSmall title="Identities" description="Manage your identities" />
+                <HeadingSmall :title="info.title" :description="info.description" />
                 <div class="h-[29rem]">
                     <form @submit.prevent="handleSearch">
                         <div class="mb-4 flex w-full items-center">
@@ -20,12 +20,12 @@
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            <TableRow v-for="(identity, id) in identities.data" :key="id">
+                            <TableRow v-for="(value, id) in identities.data" :key="id">
                                 <TableCell class="font-medium">
-                                    {{ identity.name }}
+                                    {{ value.name }}
                                 </TableCell>
                                 <TableCell class="font-medium">
-                                    {{ identity.description }}
+                                    {{ value.description }}
                                 </TableCell>
                             </TableRow>
                         </TableBody>
@@ -61,7 +61,7 @@ const page = usePage();
 
 const props = defineProps<{
     identities: Identity[];
-    errors: Object;
+    errors: object;
 }>();
 
 const search = ref(new URL(document.location).searchParams.get('q'));
@@ -77,6 +77,8 @@ const handleSearch = () => {
         },
     );
 };
+
+const info = { title: 'Identities', description: 'Manage Master Identities' };
 
 const breadcrumbs: BreadcrumbItem[] = [
     {

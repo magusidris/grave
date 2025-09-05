@@ -23,23 +23,24 @@ export interface NavItem {
     }[];
 }
 
-export interface ProvinceResource {
+export interface Province {
     id: number;
     name: string;
     created_at: DateTime;
     updated_at: DateTime;
 }
 
-export interface CityResource {
+export interface City {
     id: number;
     province_id: number;
     province: string;
+    type: string | null;
     name: string;
     created_at: DateTime;
     updated_at: DateTime;
 }
 
-export interface SubdistrictResource {
+export interface Subdistrict {
     id: number;
     city_id: number;
     city: string;

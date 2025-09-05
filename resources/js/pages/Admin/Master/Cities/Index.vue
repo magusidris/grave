@@ -1,9 +1,9 @@
 <template>
     <AppLayout :breadcrumbs="breadcrumbs">
-        <Head title="Dashboard" />
+        <Head :title="info.title" />
         <div class="p-4">
             <div class="flex h-full flex-col space-y-6">
-                <HeadingSmall title="Cities" description="Manage your cities" />
+                <HeadingSmall :title="info.title" :description="info.description" />
                 <div class="h-[29rem]">
                     <form @submit.prevent="handleSearch">
                         <div class="mb-4 flex w-full items-center">
@@ -20,12 +20,12 @@
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            <TableRow v-for="(city, id) in cities.data" :key="id">
+                            <TableRow v-for="(value, id) in cities.data" :key="id">
                                 <TableCell class="font-medium">
-                                    <span class="capitalize">{{ city.type + ' ' }} </span>{{ city.name }}
+                                    <span class="capitalize">{{ value.type + ' ' }} </span>{{ value.name }}
                                 </TableCell>
                                 <TableCell class="font-medium">
-                                    {{ city.province }}
+                                    {{ value.province }}
                                 </TableCell>
                             </TableRow>
                         </TableBody>
@@ -57,11 +57,11 @@ import { type BreadcrumbItem, type City } from '@/types';
 import { Head, router, usePage } from '@inertiajs/vue3';
 import { ref } from 'vue';
 
-const page = usePage();
+usePage();
 
-const props = defineProps<{
+defineProps<{
     cities: City[];
-    errors: Object;
+    errors: object;
 }>();
 
 const search = ref(new URL(document.location).searchParams.get('q'));
@@ -77,6 +77,8 @@ const handleSearch = () => {
         },
     );
 };
+
+const info = { title: 'Cities', description: 'Manage Master Cities' };
 
 const breadcrumbs: BreadcrumbItem[] = [
     {

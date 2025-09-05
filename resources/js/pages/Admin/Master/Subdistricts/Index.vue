@@ -1,9 +1,9 @@
 <template>
     <AppLayout :breadcrumbs="breadcrumbs">
-        <Head title="Dashboard" />
+        <Head :title="info.title" />
         <div class="p-4">
             <div class="flex h-full flex-col space-y-6">
-                <HeadingSmall title="Subdistricts" description="Manage your subdistricts" />
+                <HeadingSmall :title="info.title" :description="info.description" />
                 <div class="h-[29rem]">
                     <form @submit.prevent="handleSearch">
                         <div class="mb-4 flex w-full items-center">
@@ -21,15 +21,15 @@
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            <TableRow v-for="(subdistrict, id) in subdistricts.data" :key="id">
+                            <TableRow v-for="(value, id) in subdistricts.data" :key="id">
                                 <TableCell class="font-medium">
-                                    {{ subdistrict.name }}
+                                    {{ value.name }}
                                 </TableCell>
                                 <TableCell class="font-medium">
-                                    <span class="capitalize">{{ subdistrict.type + ' ' }} </span>{{ subdistrict.city }}
+                                    <span class="capitalize">{{ value.type + ' ' }} </span>{{ value.city }}
                                 </TableCell>
                                 <TableCell class="font-medium">
-                                    {{ subdistrict.province }}
+                                    {{ value.province }}
                                 </TableCell>
                             </TableRow>
                         </TableBody>
@@ -65,7 +65,7 @@ const page = usePage();
 
 const props = defineProps<{
     subdistricts: Subdistrict[];
-    errors: Object;
+    errors: object;
 }>();
 
 const search = ref(new URL(document.location).searchParams.get('q'));
@@ -81,6 +81,8 @@ const handleSearch = () => {
         },
     );
 };
+
+const info = { title: 'Subdistricts', description: 'Manage Master Subdistricts' };
 
 const breadcrumbs: BreadcrumbItem[] = [
     {

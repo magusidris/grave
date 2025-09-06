@@ -14,6 +14,11 @@ class GraveBlock extends Model
      */
     protected $guarded = [];
 
+    /**
+     * cluster
+     *
+     * @return BelongsTo
+     */
     public function cluster(): BelongsTo
     {
         return $this->belongsTo(GraveCluster::class, 'cluster_id');

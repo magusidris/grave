@@ -47,7 +47,7 @@ const modelValue = useVModel(props, 'modelValue', emits, {
             </ComboboxTrigger>
         </ComboboxAnchor>
 
-        <ComboboxList>
+        <ComboboxList class="w-[25rem]">
             <div class="relative items-center">
                 <ComboboxInput class="h-10 rounded-none border-0 border-b pl-1 focus-visible:ring-0" :placeholder="`${props.placeholder}...`" />
                 <span class="absolute inset-y-0 start-0 flex items-center justify-center px-3">

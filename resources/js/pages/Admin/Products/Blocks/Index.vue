@@ -140,7 +140,7 @@ const handleConfirmDelete = (value: Block) => {
                 theme: 'dark',
                 icon: 'fa-solid fa-check',
                 progressBarColor: 'rgb(0, 255, 184)',
-                message: `Cluster ${value.name} deleted successfully.`,
+                message: `Block ${value.name} deleted successfully.`,
             });
         },
     });

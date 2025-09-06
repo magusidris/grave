@@ -53,11 +53,12 @@ class BlockController extends Controller
          * Validate request
          */
         $request->validate([
+            'cluster'      => 'required',
             'name'          => 'required',
             'description'   => 'required',
         ]);
 
-        GraveBlock::create(['name' => $request->name, 'description' => $request->description]);
+        GraveBlock::create(['cluster_id' => $request->cluster['id'], 'name' => $request->name, 'description' => $request->description]);
 
         //redirect
         return redirect()->route('admin.products.blocks.index');
@@ -72,7 +73,7 @@ class BlockController extends Controller
     public function edit($id)
     {
         //get block
-        $block = GraveBlock::findOrFail($id);
+        $block = GraveBlock::findOrFail($id)->load('cluster');
 
         //render with inertia
         return Inertia::render('Admin/Products/Blocks/Edit', [

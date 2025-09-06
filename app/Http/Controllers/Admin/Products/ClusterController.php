@@ -9,6 +9,11 @@ use Inertia\Inertia;
 
 class ClusterController extends Controller
 {
+    /**
+     * index
+     *
+     * @return void
+     */
     public function index()
     {
         $clusters = GraveCluster::when(request()->q, function ($clusters) {

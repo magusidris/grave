@@ -27,7 +27,6 @@
                             type="text"
                             rows="6"
                             class="mt-1 block w-full"
-                            autocomplete="title"
                             placeholder="Cluster Description"
                         />
                         <InputError class="mt-2" :message="form.errors.description" />

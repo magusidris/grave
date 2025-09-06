@@ -94,12 +94,14 @@ class BlockController extends Controller
          * validate request
          */
         $request->validate([
+            'cluster'      => 'required',
             'name'          => 'required|unique:grave_blocks,name,' . $block->id,
             'description'   => 'required',
         ]);
 
         //update block
         $block->update([
+            'cluster_id' => $request->cluster['id'],
             'name' => $request->name,
             'description' => $request->description
         ]);

@@ -21,7 +21,7 @@ class GraveController extends Controller
     {
         $graves = Grave::when(request()->q, function ($graves) {
             $graves = $graves->where('name', 'like', '%' . request()->q . '%');
-        })->with('cluster', 'block')->latest()->paginate(10)->withQueryString();
+        })->with('cluster', 'block', 'type')->latest()->paginate(10)->withQueryString();
 
         return Inertia::render('Admin/Products/Graves/Index', [
             'graves' => $graves

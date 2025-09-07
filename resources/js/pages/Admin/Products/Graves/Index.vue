@@ -8,7 +8,7 @@
                     <form @submit.prevent="handleSearch">
                         <div class="mb-4 flex w-full items-center">
                             <Button class="h-10 w-27 rounded-r-none bg-teal-600 uppercase hover:bg-teal-700" as-child
-                                ><Link href="/admin/products/blocks/create"><Icon code="fa6-solid:plus" /> New</Link>
+                                ><Link href="/admin/products/graves/create"><Icon code="fa6-solid:plus" /> New</Link>
                             </Button>
                             <Input v-model="search" class="h-10 rounded-none" id="search" type="text" placeholder="Search" />
                             <Button class="h-10 w-27 rounded-l-none bg-teal-600 uppercase hover:bg-teal-700" type="submit">
@@ -27,7 +27,7 @@
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            <TableRow v-for="(value, id) in blocks.data" :key="id">
+                            <TableRow v-for="(value, id) in graves.data" :key="id">
                                 <TableCell class="content-start text-start text-base">
                                     {{ value.name }}
                                 </TableCell>
@@ -41,7 +41,7 @@
                                 </TableCell>
                                 <TableCell class="content-start text-center">
                                     <Button class="mr-2 bg-green-600 hover:bg-green-700" size="sm" as-child
-                                        ><Link :href="`/admin/products/blocks/${value.id}/edit`">
+                                        ><Link :href="`/admin/products/graves/${value.id}/edit`">
                                             <Icon code="fa6-solid:pencil" /> Edit
                                         </Link></Button
                                     >
@@ -63,11 +63,11 @@
                 </div>
                 <div class="flex justify-end">
                     <Pagination
-                        :links="blocks.links"
-                        :prev="blocks.prev_page_url"
-                        :next="blocks.next_page_url"
-                        :current="blocks.current_page"
-                        :last="blocks.last_page"
+                        :links="graves.links"
+                        :prev="graves.prev_page_url"
+                        :next="graves.next_page_url"
+                        :current="graves.current_page"
+                        :last="graves.last_page"
                     />
                 </div>
             </div>
@@ -96,7 +96,7 @@ import { ref } from 'vue';
 usePage();
 
 defineProps<{
-    blocks: Block[];
+    graves: Block[];
     errors: object;
 }>();
 
@@ -104,7 +104,7 @@ const search = ref(new URL(window.location.href).searchParams.get('q'));
 
 const handleSearch = () => {
     router.get(
-        route('admin.products.blocks.index'),
+        route('admin.products.graves.index'),
         {
             q: search.value !== null ? search.value : '',
         },
@@ -114,7 +114,7 @@ const handleSearch = () => {
     );
 };
 
-const info = { title: 'Block Management', description: 'Manage your Blocks' };
+const info = { title: 'Grave Management', description: 'Manage your Graves' };
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -126,13 +126,13 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: '#',
     },
     {
-        title: 'Blocks',
-        href: '/admin/products/blocks',
+        title: 'Graves',
+        href: '/admin/products/graves',
     },
 ];
 
 const handleConfirmDelete = (value: Block) => {
-    router.delete(route('admin.products.blocks.destroy', value.id), {
+    router.delete(route('admin.products.graves.destroy', value.id), {
         preserveState: true,
         onSuccess: () => {
             iziToast.show({
@@ -140,7 +140,7 @@ const handleConfirmDelete = (value: Block) => {
                 theme: 'dark',
                 icon: 'fa-solid fa-check',
                 progressBarColor: 'rgb(0, 255, 184)',
-                message: `Block ${value.name} deleted successfully.`,
+                message: `Grave ${value.name} deleted successfully.`,
             });
         },
     });

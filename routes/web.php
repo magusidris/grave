@@ -45,6 +45,8 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->name('admin.')->group(
         Route::resource('blocks', \App\Http\Controllers\Admin\Products\BlockController::class);
 
         Route::resource('types', \App\Http\Controllers\Admin\Products\TypeController::class);
+
+        Route::resource('graves', \App\Http\Controllers\Admin\Products\GraveController::class);
     });
 
     require __DIR__ . '/settings.php';

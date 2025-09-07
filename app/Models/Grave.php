@@ -43,4 +43,20 @@ class Grave extends Model
     {
         return $this->belongsTo(GraveType::class, 'type_id');
     }
+
+    /**
+     * boot
+     *
+     * @return void
+     */
+    public static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            $model->number = Grave::where('cluster_id', $model->cluster_id)
+                ->where('block_id', $model->block_id)
+                ->max('number') + 1;
+        });
+    }
 }

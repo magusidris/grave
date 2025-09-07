@@ -13,24 +13,4 @@ class GraveType extends Model
      * @var array
      */
     protected $guarded = [];
-
-    /**
-     * cluster
-     *
-     * @return BelongsTo
-     */
-    public function cluster(): BelongsTo
-    {
-        return $this->belongsTo(GraveCluster::class, 'cluster_id');
-    }
-
-    /**
-     * block
-     *
-     * @return BelongsTo
-     */
-    public function block(): BelongsTo
-    {
-        return $this->belongsTo(GraveBlock::class, 'block_id');
-    }
 }

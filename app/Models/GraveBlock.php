@@ -12,4 +12,18 @@ class GraveBlock extends Model
      * @var array
      */
     protected $guarded = [];
+
+    /**
+     * boot
+     *
+     * @return void
+     */
+    public static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            $model->sequence = GraveBlock::max('sequence') + 1;
+        });
+    }
 }

@@ -8,31 +8,52 @@
                     <div class="flex w-full flex-col gap-4 xl:flex-row">
                         <div class="w-full">
                             <div class="grid w-full items-center gap-1.5">
-                                <Label for="cluster">Cluster</Label>
-                                <SimpleCombobox
-                                    class="inset-y-0 start-0 w-full"
-                                    title="Cluster"
-                                    v-model="form.cluster"
-                                    :datas="clusters"
-                                    placeholder="Select Cluster"
-                                />
-                            </div>
-                            <InputError class="mt-2" :message="form.errors.cluster" />
-                        </div>
-                        <div class="w-full">
-                            <div class="grid w-full items-center gap-1.5">
-                                <Label for="name">Block Name</Label>
+                                <Label for="name">Name</Label>
                                 <Input
                                     id="name"
                                     ref="name"
                                     v-model="form.name"
                                     type="text"
                                     class="mt-1 block w-full"
-                                    autocomplete="title"
-                                    placeholder="Block Name"
+                                    autocomplete="name"
+                                    placeholder="Name"
                                 />
                             </div>
                             <InputError class="mt-2" :message="form.errors.name" />
+                        </div>
+                        <div class="w-full">
+                            <div class="grid w-full items-center gap-1.5">
+                                <Label for="width">Width</Label>
+                                <Input id="width" ref="width" v-model="form.width" type="text" class="mt-1 block w-full" placeholder="Width" />
+                            </div>
+                            <InputError class="mt-2" :message="form.errors.width" />
+                        </div>
+                    </div>
+                    <div class="flex w-full flex-col gap-4 xl:flex-row">
+                        <div class="w-full">
+                            <div class="grid w-full items-center gap-1.5">
+                                <Label for="name">Height</Label>
+                                <Input id="height" ref="height" v-model="form.height" type="text" class="mt-1 block w-full" placeholder="height" />
+                            </div>
+                            <InputError class="mt-2" :message="form.errors.name" />
+                        </div>
+                        <div class="w-full">
+                            <div class="grid w-full items-center gap-1.5">
+                                <Label for="price">Price</Label>
+                                <div class="relative">
+                                    <span class="absolute inset-y-0 left-3 flex items-center justify-center">Rp</span>
+                                    <Input
+                                        id="price"
+                                        ref="price"
+                                        v-model="form.price"
+                                        type="number"
+                                        min="0"
+                                        class="mt-1 block w-full pl-12"
+                                        placeholder="price"
+                                    />
+                                </div>
+                            </div>
+                            <InputError class="mt-2" :message="form.errors.width" />
                         </div>
                     </div>
                     <div class="w-full">
@@ -52,7 +73,7 @@
                     </div>
                     <div class="mt-4 flex items-center gap-2">
                         <Button class="bg-teal-600 hover:bg-teal-700" type="submit"> Save </Button>
-                        <Button as-child><Link href="/admin/products/blocks">Batal</Link></Button>
+                        <Button as-child><Link href="/admin/products/types">Batal</Link></Button>
                     </div>
                 </form>
             </div>
@@ -61,8 +82,6 @@
 </template>
 
 <script setup lang="ts">
-import SimpleCombobox from '@/components/SimpleCombobox.vue';
-// import Combobox from '@/components/Combobox.vue';
 import HeadingSmall from '@/components/HeadingSmall.vue';
 import InputError from '@/components/InputError.vue';
 import { Button } from '@/components/ui/button';
@@ -73,26 +92,27 @@ import { type BreadcrumbItem } from '@/types';
 import { Head, Link, useForm, usePage } from '@inertiajs/vue3';
 
 const onSubmit = () => {
-    form.post(`/admin/products/blocks/${props.block.id}`, {
+    form.post(`/admin/products/types/${props.type.id}`, {
         onSuccess: () => form.reset(),
     });
 };
 usePage();
 
 const props = defineProps<{
-    block: object;
-    clusters: object;
+    type: object;
     errors: object;
 }>();
 
 const form = useForm({
     _method: 'PATCH',
-    cluster: props.block.cluster,
-    name: props.block.name,
-    description: props.block.description,
+    name: props.type.name,
+    width: props.type.width,
+    height: props.type.height,
+    price: props.type.price,
+    description: props.type.description,
 });
 
-const info = { title: 'Edit Block', description: 'Edit an existing block' };
+const info = { title: 'Edit Type', description: 'Edit an existing type' };
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -104,12 +124,12 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: '#',
     },
     {
-        title: 'Blocks',
-        href: '/admin/products/blocks',
+        title: 'Types',
+        href: '/admin/products/types',
     },
     {
-        title: 'Edit Block',
-        href: '/admin/products/blocks/edit',
+        title: 'Edit Type',
+        href: '/admin/products/types/edit',
     },
 ];
 </script>

@@ -8,7 +8,7 @@
                     <form @submit.prevent="handleSearch">
                         <div class="mb-4 flex w-full items-center">
                             <Button class="h-10 w-27 rounded-r-none bg-teal-600 uppercase hover:bg-teal-700" as-child
-                                ><Link href="/admin/products/blocks/create"><Icon code="fa6-solid:plus" /> New</Link>
+                                ><Link href="/admin/products/types/create"><Icon code="fa6-solid:plus" /> New</Link>
                             </Button>
                             <Input v-model="search" class="h-10 rounded-none" id="search" type="text" placeholder="Search" />
                             <Button class="h-10 w-27 rounded-l-none bg-teal-600 uppercase hover:bg-teal-700" type="submit">
@@ -21,8 +21,8 @@
                         <TableHeader>
                             <TableRow>
                                 <TableHead> Name </TableHead>
-                                <TableHead class="w-[12em]"> Cluster </TableHead>
-                                <TableHead class="w-[12em]"> Block </TableHead>
+                                <TableHead class="w-[12em]"> Width </TableHead>
+                                <TableHead class="w-[12em]"> Height </TableHead>
                                 <TableHead class="w-[12em]"> Price </TableHead>
                                 <TableHead> Description </TableHead>
                                 <TableHead class="w-[20em] text-center"> Actions </TableHead>
@@ -34,14 +34,10 @@
                                     {{ value.name }}
                                 </TableCell>
                                 <TableCell class="content-start text-start text-base">
-                                    <Badge variant="secondary">
-                                        {{ value.cluster.name }}
-                                    </Badge>
+                                    {{ `${value.width} cm` }}
                                 </TableCell>
                                 <TableCell class="content-start text-start text-base">
-                                    <Badge variant="secondary">
-                                        {{ value.block.name }}
-                                    </Badge>
+                                    {{ `${value.height} cm` }}
                                 </TableCell>
                                 <TableCell class="content-start text-start text-base">
                                     {{ `${formatPrice2(value.price)}` }}
@@ -88,7 +84,6 @@ import AlertDialog from '@/components/AlertDialog.vue';
 import HeadingSmall from '@/components/HeadingSmall.vue';
 import Icon from '@/components/Icon.vue';
 import Pagination from '@/components/Pagination.vue';
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';

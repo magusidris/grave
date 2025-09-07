@@ -19,7 +19,7 @@ class TypeController extends Controller
     {
         $types = GraveType::when(request()->q, function ($types) {
             $types = $types->where('name', 'like', '%' . request()->q . '%');
-        })->with('cluster', 'block')->latest()->paginate(10)->withQueryString();
+        })->latest()->paginate(10)->withQueryString();
 
         return Inertia::render('Admin/Products/Types/Index', [
             'types' => $types
@@ -33,14 +33,8 @@ class TypeController extends Controller
      */
     public function create()
     {
-        $clusters = GraveCluster::all();
-        $blocks = GraveType::all();
-
         // render with inertia
-        return Inertia::render('Admin/Products/Types/Create', [
-            'clusters' => $clusters,
-            'blocks' => $blocks
-        ]);
+        return Inertia::render('Admin/Products/Types/Create');
     }
 
     /**
@@ -55,16 +49,18 @@ class TypeController extends Controller
          * Validate request
          */
         $request->validate([
-            'cluster'      => 'required',
-            'block'        => 'required',
             'name'          => 'required',
+            'width'        => 'required|numeric',
+            'height'       => 'required|numeric',
+            'price'        => 'required|numeric',
             'description'   => 'required',
         ]);
 
         GraveType::create([
-            'cluster_id' => $request->cluster['id'],
-            'block_id' => $request->block['id'],
             'name' => $request->name,
+            'width' => $request->width,
+            'height' => $request->height,
+            'price' => $request->price,
             'description' => $request->description
         ]);
 
@@ -81,7 +77,7 @@ class TypeController extends Controller
     public function edit($id)
     {
         //get type
-        $type = GraveType::findOrFail($id)->load('cluster', 'block');
+        $type = GraveType::findOrFail($id);
 
         //render with inertia
         return Inertia::render('Admin/Products/Types/Edit', [
@@ -102,17 +98,19 @@ class TypeController extends Controller
          * validate request
          */
         $request->validate([
-            'cluster'      => 'required',
-            'block'        => 'required',
-            'name'          => 'required|unique:grave_blocks,name,' . $type->id,
+            'name'          => 'required|unique:grave_types,name,' . $type->id,
+            'width'        => 'required|numeric',
+            'height'       => 'required|numeric',
+            'price'        => 'required|numeric',
             'description'   => 'required',
         ]);
 
         //update type
         $type->update([
-            'cluster_id' => $request->cluster['id'],
-            'block_id' => $request->block['id'],
             'name' => $request->name,
+            'width' => $request->width,
+            'height' => $request->height,
+            'price' => $request->price,
             'description' => $request->description
         ]);
 

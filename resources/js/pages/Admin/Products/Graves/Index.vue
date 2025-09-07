@@ -21,6 +21,7 @@
                         <TableHeader>
                             <TableRow>
                                 <TableHead> Name </TableHead>
+                                <TableHead> Cluster </TableHead>
                                 <TableHead> Description </TableHead>
                                 <TableHead class="w-[20em] text-center"> Actions </TableHead>
                             </TableRow>
@@ -29,6 +30,11 @@
                             <TableRow v-for="(value, id) in blocks.data" :key="id">
                                 <TableCell class="content-start text-start text-base">
                                     {{ value.name }}
+                                </TableCell>
+                                <TableCell class="content-start text-start text-base">
+                                    <Badge variant="secondary">
+                                        {{ value.cluster.name }}
+                                    </Badge>
                                 </TableCell>
                                 <TableCell class="content-start text-start text-base">
                                     {{ value.description }}
@@ -74,6 +80,7 @@ import AlertDialog from '@/components/AlertDialog.vue';
 import HeadingSmall from '@/components/HeadingSmall.vue';
 import Icon from '@/components/Icon.vue';
 import Pagination from '@/components/Pagination.vue';
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';

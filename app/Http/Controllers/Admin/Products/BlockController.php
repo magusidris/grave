@@ -19,7 +19,7 @@ class BlockController extends Controller
     {
         $blocks = GraveBlock::when(request()->q, function ($blocks) {
             $blocks = $blocks->where('name', 'like', '%' . request()->q . '%');
-        })->with('cluster')->latest()->paginate(10)->withQueryString();
+        })->latest()->paginate(10)->withQueryString();
 
         return Inertia::render('Admin/Products/Blocks/Index', [
             'blocks' => $blocks
@@ -53,12 +53,14 @@ class BlockController extends Controller
          * Validate request
          */
         $request->validate([
-            'cluster'      => 'required',
             'name'          => 'required',
             'description'   => 'required',
         ]);
 
-        GraveBlock::create(['cluster_id' => $request->cluster['id'], 'name' => $request->name, 'description' => $request->description]);
+        GraveBlock::create([
+            'name'          => $request->name,
+            'description'   => $request->description
+        ]);
 
         //redirect
         return redirect()->route('admin.products.blocks.index');
@@ -73,7 +75,7 @@ class BlockController extends Controller
     public function edit($id)
     {
         //get block
-        $block = GraveBlock::findOrFail($id)->load('cluster');
+        $block = GraveBlock::findOrFail($id);
 
         //render with inertia
         return Inertia::render('Admin/Products/Blocks/Edit', [
@@ -94,14 +96,12 @@ class BlockController extends Controller
          * validate request
          */
         $request->validate([
-            'cluster'      => 'required',
             'name'          => 'required|unique:grave_blocks,name,' . $block->id,
             'description'   => 'required',
         ]);
 
         //update block
         $block->update([
-            'cluster_id' => $request->cluster['id'],
             'name' => $request->name,
             'description' => $request->description
         ]);

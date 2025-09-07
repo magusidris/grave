@@ -8,6 +8,19 @@
                     <div class="flex w-full flex-col gap-4 xl:flex-row">
                         <div class="w-full">
                             <div class="grid w-full items-center gap-1.5">
+                                <Label for="cluster">Cluster</Label>
+                                <SimpleCombobox
+                                    class="inset-y-0 start-0 w-full"
+                                    title="Cluster"
+                                    v-model="form.cluster"
+                                    :datas="clusters"
+                                    placeholder="Select Cluster"
+                                />
+                            </div>
+                            <InputError class="mt-2" :message="form.errors.cluster" />
+                        </div>
+                        <div class="w-full">
+                            <div class="grid w-full items-center gap-1.5">
                                 <Label for="name">Block Name</Label>
                                 <Input
                                     id="name"
@@ -48,6 +61,7 @@
 </template>
 
 <script setup lang="ts">
+import SimpleCombobox from '@/components/SimpleCombobox.vue';
 // import Combobox from '@/components/Combobox.vue';
 import HeadingSmall from '@/components/HeadingSmall.vue';
 import InputError from '@/components/InputError.vue';
@@ -59,24 +73,24 @@ import { type BreadcrumbItem } from '@/types';
 import { Head, Link, useForm, usePage } from '@inertiajs/vue3';
 
 const onSubmit = () => {
-    form.post(`/admin/products/blocks/${props.block.id}`, {
+    form.post('/admin/products/blocks', {
         onSuccess: () => form.reset(),
     });
 };
 usePage();
 
-const props = defineProps<{
-    block: object;
+defineProps<{
+    clusters: object;
     errors: object;
 }>();
 
 const form = useForm({
-    _method: 'PATCH',
-    name: props.block.name,
-    description: props.block.description,
+    cluster: '',
+    name: '',
+    description: '',
 });
 
-const info = { title: 'Edit Block', description: 'Edit an existing block' };
+const info = { title: 'Create Cluster', description: 'Create a new cluster' };
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -92,8 +106,8 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: '/admin/products/blocks',
     },
     {
-        title: 'Edit Block',
-        href: '/admin/products/blocks/edit',
+        title: 'Create Block',
+        href: '/admin/products/blocks/create',
     },
 ];
 </script>

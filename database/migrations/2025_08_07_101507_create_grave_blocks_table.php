@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('grave_blocks', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('cluster_id')->constrained('grave_clusters')->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('name')->unique();
             $table->text('description')->nullable();
+            $table->unsignedInteger('sequence')->default(1);
             $table->timestamps();
         });
     }

@@ -13,8 +13,6 @@ return new class extends Migration
     {
         Schema::create('grave_types', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('cluster_id')->constrained('grave_clusters')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreignId('block_id')->constrained('grave_blocks')->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('image')->nullable();
             $table->string('name')->unique();
             $table->unsignedTinyInteger('width')->default(1);

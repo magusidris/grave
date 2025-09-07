@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('graves', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('type_id')->constrained('grave_types')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('cluster_id')->constrained('grave_clusters')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('block_id')->constrained('grave_blocks')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->unsignedTinyInteger('number')->default(1);
+            $table->foreignId('type_id')->constrained('grave_types')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->unsignedInteger('number')->default(1);
             $table->string('code')->unique();
             $table->boolean('is_available')->default(true);
             $table->boolean('is_occupied')->default(false);

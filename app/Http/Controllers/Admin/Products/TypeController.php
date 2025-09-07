@@ -19,7 +19,7 @@ class TypeController extends Controller
     {
         $types = GraveType::when(request()->q, function ($types) {
             $types = $types->where('name', 'like', '%' . request()->q . '%');
-        })->with('cluster')->latest()->paginate(10)->withQueryString();
+        })->with('cluster', 'block')->latest()->paginate(10)->withQueryString();
 
         return Inertia::render('Admin/Products/Types/Index', [
             'types' => $types

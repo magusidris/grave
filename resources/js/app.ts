@@ -15,6 +15,71 @@ createInertiaApp({
     resolve: (name) => resolvePageComponent(`./pages/${name}.vue`, import.meta.glob<DefineComponent>('./pages/**/*.vue')),
     setup({ el, App, props, plugin }) {
         createApp({ render: () => h(App, props) })
+            //set mixins
+            .mixin({
+                methods: {
+                    //method "hasAnyPermission"
+                    hasAnyPermission: function (permissions) {
+                        //get permissions from props
+                        const allPermissions = this.$page.props.auth.permissions;
+
+                        let hasPermission = false;
+                        permissions.forEach(function (item) {
+                            if (allPermissions[item]) hasPermission = true;
+                        });
+
+                        return hasPermission;
+                    },
+
+                    //format price
+                    formatNumber(value) {
+                        return new Intl.NumberFormat('id-ID').format(value);
+                    },
+
+                    //format price
+                    formatPrice(value) {
+                        return new Intl.NumberFormat('id-ID', {
+                            currency: 'IDR',
+                        }).format(value);
+                    },
+                    formatPrice2(value) {
+                        return new Intl.NumberFormat('id-ID', {
+                            style: 'currency',
+                            currency: 'IDR',
+                        }).format(value);
+                    },
+
+                    //format date
+                    formatDate(value, options = {}) {
+                        const defaultOptions = {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric',
+                        };
+                        const formatOptions = {
+                            ...defaultOptions,
+                            ...options,
+                        };
+                        return new Intl.DateTimeFormat('id-ID', formatOptions).format(new Date(value));
+                    },
+
+                    //format date time
+                    formatDateTime(value, options = {}) {
+                        const defaultOptions = {
+                            year: 'numeric',
+                            month: 'short',
+                            day: 'numeric',
+                            hour: 'numeric',
+                            minute: 'numeric',
+                        };
+                        const formatOptions = {
+                            ...defaultOptions,
+                            ...options,
+                        };
+                        return new Intl.DateTimeFormat('en-GB', formatOptions).format(new Date(value));
+                    },
+                },
+            })
             .use(plugin)
             .use(Vue3Mq, {
                 breakpoints: {

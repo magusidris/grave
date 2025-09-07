@@ -59,7 +59,17 @@ export interface Cluster {
 
 export interface Block {
     id: number;
-    cluster_id: number;
+    cluster: number;
+    name: string;
+    description: string | null;
+    created_at: DateTime;
+    updated_at: DateTime;
+}
+
+export interface Type {
+    id: number;
+    cluster: number;
+    block: number;
     name: string;
     description: string | null;
     created_at: DateTime;

@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('grave_blocks', function (Blueprint $table) {
             $table->id();
+            $table->string('image')->nullable();
             $table->string('name')->unique();
             $table->text('description')->nullable();
             $table->unsignedInteger('sequence')->default(1);

@@ -7,9 +7,29 @@
                 <div class="h-[29rem]">
                     <form @submit.prevent="handleSearch">
                         <div class="mb-4 flex w-full items-center">
-                            <Button class="h-10 w-27 rounded-r-none bg-teal-600 uppercase hover:bg-teal-700" as-child
-                                ><Link href="/admin/products/graves/create"><Icon code="fa6-solid:plus" /> New</Link>
-                            </Button>
+                            <Dialog>
+                                <template #trigger>
+                                    <Button class="h-10 w-27 rounded-r-none bg-teal-600 uppercase hover:bg-teal-700"
+                                        ><Icon code="fa6-solid:plus" /> New
+                                    </Button>
+                                </template>
+                                <template #header>
+                                    <DialogTitle>Edit profile</DialogTitle>
+                                    <DialogDescription> Make changes to your profile here. Click save when you're done. </DialogDescription>
+                                </template>
+                                <template #default>
+                                    <div class="grid gap-4 py-4">
+                                        <div class="grid grid-cols-4 items-center gap-4">
+                                            <Label for="name" class="text-right"> Name </Label>
+                                            <Input id="name" default-value="Pedro Duarte" class="col-span-3" />
+                                        </div>
+                                        <div class="grid grid-cols-4 items-center gap-4">
+                                            <Label for="username" class="text-right"> Username </Label>
+                                            <Input id="username" default-value="@peduarte" class="col-span-3" />
+                                        </div>
+                                    </div>
+                                </template>
+                            </Dialog>
                             <Input v-model="search" class="h-10 rounded-none" id="search" type="text" placeholder="Search" />
                             <Button class="h-10 w-27 rounded-l-none bg-teal-600 uppercase hover:bg-teal-700" type="submit">
                                 <Icon code="heroicons:magnifying-glass-16-solid" /> Cari
@@ -77,6 +97,7 @@
 
 <script setup lang="ts">
 import AlertDialog from '@/components/AlertDialog.vue';
+import Dialog from '@/components/Dialog.vue';
 import HeadingSmall from '@/components/HeadingSmall.vue';
 import Icon from '@/components/Icon.vue';
 import Pagination from '@/components/Pagination.vue';
@@ -87,6 +108,8 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import AppLayout from '@/layouts/AppLayout.vue';
 import { type Block, type BreadcrumbItem } from '@/types';
 import { Head, Link, router, usePage } from '@inertiajs/vue3';
+
+import { Label } from '@/components/ui/label';
 
 import iziToast from 'izitoast';
 

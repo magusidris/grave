@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTrigger } from '@/components/ui/dialog';
 </script>
 
@@ -14,7 +13,7 @@ import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTrigger } from
             </DialogHeader>
             <slot />
             <DialogFooter>
-                <Button type="submit"> Save changes </Button>
+                <slot name="footer" />
             </DialogFooter>
         </DialogContent>
     </Dialog>

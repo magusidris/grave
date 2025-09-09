@@ -24,7 +24,7 @@ const props = defineProps({
     },
     selected: Object,
 });
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits(['update:modelValue', 'change']);
 
 const query = ref('');
 const selectedPerson = ref(props.modelValue);
@@ -38,6 +38,7 @@ const filteredPeople = computed(() =>
 
 function updateHandler(e) {
     emit('update:modelValue', e);
+    emit('change', e);
     // console.log(e)
 }
 </script>
@@ -49,7 +50,6 @@ function updateHandler(e) {
                 :id="id"
                 :placeholder="placeholder"
                 class="bg-base-100 h-9 w-full rounded-lg border-0 py-1.5 pr-10 pl-3 text-primary capitalize shadow-sm ring-1 ring-gray-300 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-primary focus:ring-inset focus-visible:outline-none sm:text-sm sm:leading-6"
-                @change="query = $event.target.value"
                 :display-value="(person) => person?.name"
             />
             <ComboboxButton class="absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 focus:outline-none">

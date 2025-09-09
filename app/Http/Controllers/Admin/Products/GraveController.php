@@ -22,9 +22,15 @@ class GraveController extends Controller
         $graves = Grave::when(request()->q, function ($graves) {
             $graves = $graves->where('name', 'like', '%' . request()->q . '%');
         })->with('cluster', 'block', 'type')->latest()->paginate(10)->withQueryString();
+        $clusters = GraveCluster::all();
+        $blocks = GraveBlock::all();
+        $types = GraveType::all();
 
         return Inertia::render('Admin/Products/Graves/Index', [
-            'graves' => $graves
+            'graves' => $graves,
+            'clusters' => $clusters,
+            'blocks' => $blocks,
+            'types' => $types
         ]);
     }
 
@@ -144,5 +150,20 @@ class GraveController extends Controller
 
         //redirect
         return redirect()->route('admin.products.graves.index');
+    }
+
+    /**
+     * getNumberOfGraves
+     *
+     * @return void
+     */
+    public function getNumberOfGraves()
+    {
+        $numberOfGraves = Grave::where('cluster_id', request()->cluster_id)
+            ->where('block_id', request()->block_id)
+            ->max('number') ?? 0;
+        $numberOfGraves += 1;
+
+        return response()->json(['count' => $numberOfGraves]);
     }
 }

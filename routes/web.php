@@ -47,6 +47,8 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->name('admin.')->group(
         Route::resource('types', \App\Http\Controllers\Admin\Products\TypeController::class);
 
         Route::resource('graves', \App\Http\Controllers\Admin\Products\GraveController::class);
+
+        Route::post('graves/count', [\App\Http\Controllers\Admin\Products\GraveController::class, 'getNumberOfGraves'])->name('graves.count');
     });
 
     require __DIR__ . '/settings.php';

@@ -76,6 +76,21 @@ export interface Type {
     updated_at: DateTime;
 }
 
+export interface Grave {
+    id: number;
+    cluster: number;
+    block: number;
+    type: number;
+    number: number;
+    code: string;
+    is_available: boolean;
+    is_occupied: boolean;
+    is_fully_paid: boolean;
+    description: string | null;
+    created_at: DateTime;
+    updated_at: DateTime;
+}
+
 export type AppPageProps<T extends Record<string, unknown> = Record<string, unknown>> = T & {
     name: string;
     quote: { message: string; author: string };

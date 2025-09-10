@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Products;
 
 use App\Http\Controllers\Controller;
 use App\Models\GraveCluster;
+use App\Models\GraveSite;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -18,7 +19,7 @@ class ClusterController extends Controller
     {
         $clusters = GraveCluster::when(request()->q, function ($clusters) {
             $clusters = $clusters->where('name', 'like', '%' . request()->q . '%');
-        })->latest()->paginate(10)->withQueryString();
+        })->with('site')->latest()->paginate(10)->withQueryString();
 
         return Inertia::render('Admin/Products/Clusters/Index', [
             'clusters' => $clusters
@@ -32,8 +33,11 @@ class ClusterController extends Controller
      */
     public function create()
     {
+        $sites = GraveSite::all();
         // render with inertia
-        return Inertia::render('Admin/Products/Clusters/Create');
+        return Inertia::render('Admin/Products/Clusters/Create', [
+            'sites' => $sites
+        ]);
     }
 
     /**
@@ -48,11 +52,16 @@ class ClusterController extends Controller
          * Validate request
          */
         $request->validate([
+            'site'          => 'required',
             'name'          => 'required',
             'description'   => 'required',
         ]);
 
-        GraveCluster::create(['name' => $request->name, 'description' => $request->description]);
+        GraveCluster::create([
+            'site_id' => $request->site['id'],
+            'name' => $request->name,
+            'description' => $request->description
+        ]);
 
         //redirect
         return redirect()->route('admin.products.clusters.index');
@@ -67,11 +76,14 @@ class ClusterController extends Controller
     public function edit($id)
     {
         //get cluster
-        $cluster = GraveCluster::findOrFail($id);
+        $cluster = GraveCluster::findOrFail($id)->load('site');
+
+        $sites = GraveSite::all();
 
         //render with inertia
         return Inertia::render('Admin/Products/Clusters/Edit', [
             'cluster'   => $cluster,
+            'sites'     => $sites
         ]);
     }
 
@@ -88,12 +100,14 @@ class ClusterController extends Controller
          * validate request
          */
         $request->validate([
+            'site'          => 'required',
             'name'          => 'required|unique:grave_clusters,name,' . $cluster->id,
             'description'   => 'required',
         ]);
 
         //update cluster
         $cluster->update([
+            'site_id' => $request->site['id'],
             'name' => $request->name,
             'description' => $request->description
         ]);

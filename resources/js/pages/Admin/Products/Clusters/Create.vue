@@ -6,6 +6,19 @@
                 <HeadingSmall :title="info.title" :description="info.description" />
                 <form class="space-y-7" @submit.prevent="onSubmit">
                     <div>
+                        <div class="grid w-full items-center gap-1.5">
+                            <Label for="site">Site</Label>
+                            <SimpleCombobox
+                                class="inset-y-0 start-0 w-full"
+                                title="Site"
+                                v-model="form.site"
+                                :datas="sites"
+                                placeholder="Select Site"
+                            />
+                        </div>
+                        <InputError class="mt-2" :message="form.errors.site" />
+                    </div>
+                    <div>
                         <Label for="name">Cluster Name</Label>
                         <Input
                             id="name"
@@ -44,6 +57,7 @@
 <script setup lang="ts">
 import HeadingSmall from '@/components/HeadingSmall.vue';
 import InputError from '@/components/InputError.vue';
+import SimpleCombobox from '@/components/SimpleCombobox.vue';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -59,10 +73,12 @@ const onSubmit = () => {
 usePage();
 
 defineProps<{
+    sites: object;
     errors: object;
 }>();
 
 const form = useForm({
+    site: null,
     name: '',
     description: '',
 });

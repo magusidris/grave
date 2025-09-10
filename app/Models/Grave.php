@@ -15,6 +15,22 @@ class Grave extends Model
     protected $guarded = [];
 
     /**
+     * boot
+     *
+     * @return void
+     */
+    public static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            $model->number = Grave::where('cluster_id', $model->cluster_id)
+                ->where('block_id', $model->block_id)
+                ->max('number') + 1;
+        });
+    }
+
+    /**
      * cluster
      *
      * @return BelongsTo
@@ -42,21 +58,5 @@ class Grave extends Model
     public function type(): BelongsTo
     {
         return $this->belongsTo(GraveType::class, 'type_id');
-    }
-
-    /**
-     * boot
-     *
-     * @return void
-     */
-    public static function boot()
-    {
-        parent::boot();
-
-        static::creating(function ($model) {
-            $model->number = Grave::where('cluster_id', $model->cluster_id)
-                ->where('block_id', $model->block_id)
-                ->max('number') + 1;
-        });
     }
 }

@@ -28,13 +28,8 @@ class GraveCluster extends Model
         });
     }
 
-    public function block(): BelongsTo
+    public function site(): BelongsTo
     {
-        return $this->belongsTo(GraveBlock::class, 'block_id');
-    }
-
-    public function type(): BelongsTo
-    {
-        return $this->belongsTo(GraveType::class, 'type_id');
+        return $this->belongsTo(GraveSite::class, 'site_id');
     }
 }

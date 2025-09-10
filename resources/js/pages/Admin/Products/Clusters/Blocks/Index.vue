@@ -35,7 +35,7 @@
                                 </TableCell>
                                 <TableCell class="content-start text-center">
                                     <Button class="mr-2 bg-green-600 hover:bg-green-700" size="sm" as-child
-                                        ><Link :href="`/admin/products/blocks/${value.id}/edit`">
+                                        ><Link :href="`/admin/products/clusters/${props.cluster.id}/blocks/${value.id}/edit`">
                                             <Icon code="fa6-solid:pencil" /> Edit
                                         </Link></Button
                                     >

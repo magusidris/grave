@@ -59,24 +59,26 @@ import { type BreadcrumbItem } from '@/types';
 import { Head, Link, useForm, usePage } from '@inertiajs/vue3';
 
 const onSubmit = () => {
-    form.post(`/admin/products/blocks/${props.block.id}`, {
+    form.post(`/admin/products/clusters/${props.cluster.id}/blocks/${props.block.id}`, {
         onSuccess: () => form.reset(),
     });
 };
 usePage();
 
 const props = defineProps<{
+    cluster: object;
     block: object;
     errors: object;
 }>();
 
 const form = useForm({
     _method: 'PATCH',
+    cluster: props.cluster.id,
     name: props.block.name,
     description: props.block.description,
 });
 
-const info = { title: 'Edit Block', description: 'Edit an existing block' };
+const info = { title: `Edit Block`, description: 'Edit an existing block' };
 
 const breadcrumbs: BreadcrumbItem[] = [
     {

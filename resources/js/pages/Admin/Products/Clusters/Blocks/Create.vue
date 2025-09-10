@@ -77,7 +77,7 @@ const form = useForm({
     description: '',
 });
 
-const info = { title: `Create Cluster ${props.cluster.name} Block`, description: 'Create a new cluster block' };
+const info = { title: `Create Block Cluster ${props.cluster.name}`, description: 'Create a new block cluster' };
 
 const breadcrumbs: BreadcrumbItem[] = [
     {

@@ -75,13 +75,14 @@ class BlockController extends Controller
      * @param  mixed $id
      * @return void
      */
-    public function edit($id)
+    public function edit(GraveCluster $cluster, $id)
     {
         //get block
         $block = GraveBlock::findOrFail($id);
 
         //render with inertia
-        return Inertia::render('Admin/Products/Blocks/Edit', [
+        return Inertia::render('Admin/Products/Clusters/Blocks/Edit', [
+            'cluster' => $cluster,
             'block'   => $block,
         ]);
     }
@@ -93,24 +94,25 @@ class BlockController extends Controller
      * @param  mixed $role
      * @return void
      */
-    public function update(Request $request, GraveBlock $block)
+    public function update(GraveCluster $cluster, Request $request, GraveBlock $block)
     {
         /**
          * validate request
          */
         $request->validate([
-            'name'          => 'required|unique:grave_blocks,name,' . $block->id,
+            'name'          => 'required',
             'description'   => 'required',
         ]);
 
         //update block
         $block->update([
+            'cluster_id' => $cluster->id,
             'name' => $request->name,
             'description' => $request->description
         ]);
 
         //redirect
-        return redirect()->route('admin.products.blocks.index', $block->id);
+        return redirect()->route('admin.products.clusters.blocks.index', $cluster->id);
     }
 
     /**

@@ -104,7 +104,7 @@
                                     </label>
                                 </template>
                                 <template #footer>
-                                    <Button type="submit"> Generate </Button>
+                                    <form @submit.prevent="onSubmit"><Button type="submit"> Generate </Button></form>
                                 </template>
                             </Dialog>
                             <Input v-model="search" class="h-10 rounded-none" id="search" type="text" placeholder="Search" />
@@ -909,7 +909,7 @@
                                     </div>
                                 </div>
                                 <!-- CLUSTER 2: FLAMBOYAN (Struktur sama seperti di atas) -->
-                                <div class="w-full max-w-4xl flex-shrink-0 rounded-xl bg-white p-6" id="cluster-flamboyan">
+                                <div class="w-full flex-shrink-0 rounded-xl bg-white" id="cluster-flamboyan">
                                     <h2 class="mb-4 text-3xl font-bold text-gray-800">Cluster Flamboyan</h2>
                                     <div class="grid grid-cols-3 gap-4 overflow-x-auto rounded-xl bg-white p-4">
                                         <!-- Blok A -->
@@ -940,15 +940,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="flex justify-end">
-                    <Pagination
-                        :links="graves.links"
-                        :prev="graves.prev_page_url"
-                        :next="graves.next_page_url"
-                        :current="graves.current_page"
-                        :last="graves.last_page"
-                    />
-                </div>
             </div>
         </div>
     </AppLayout>
@@ -960,7 +951,6 @@ import Dialog from '@/components/Dialog.vue';
 import HeadingSmall from '@/components/HeadingSmall.vue';
 import Icon from '@/components/Icon.vue';
 import InputError from '@/components/InputError.vue';
-import Pagination from '@/components/Pagination.vue';
 import SimpleCombobox from '@/components/SimpleCombobox.vue';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -1054,6 +1044,12 @@ const getCountOfGraves = async () => {
         form.from = '';
         form.to = '';
     }
+};
+
+const onSubmit = () => {
+    form.post('/admin/products/graves', {
+        onSuccess: () => form.reset(),
+    });
 };
 
 const handleConfirmDelete = (value: Block) => {

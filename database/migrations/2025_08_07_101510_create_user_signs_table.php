@@ -11,15 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('grave_types', function (Blueprint $table) {
+        Schema::create('user_signs', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained('users')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->enum('type', ['domestic', 'national', 'international'])->default('domestic');
             $table->foreignId('site_id')->constrained('grave_sites')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->string('image')->nullable();
-            $table->string('name')->unique();
-            $table->unsignedTinyInteger('width')->default(1);
-            $table->unsignedTinyInteger('height')->default(1);
-            $table->unsignedBigInteger('price')->default(3000000);
-            $table->text('description')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('grave_types');
+        Schema::dropIfExists('user_signs');
     }
 };

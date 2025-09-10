@@ -76,8 +76,23 @@ class User extends Authenticatable
         return $this->MorphOne(UserIdentity::class, 'model');
     }
 
+    /**
+     * title
+     *
+     * @return BelongsTo
+     */
     public function title(): BelongsTo
     {
         return $this->belongsTo(MasterTitle::class);
+    }
+
+    /**
+     * sign
+     *
+     * @return MorphOne
+     */
+    public function sign(): BelongsTo
+    {
+        return $this->belongsTo(UserSign::class);
     }
 }

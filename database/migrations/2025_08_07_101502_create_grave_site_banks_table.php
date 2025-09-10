@@ -11,15 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('grave_types', function (Blueprint $table) {
+        Schema::create('grave_site_banks', function (Blueprint $table) {
             $table->id();
             $table->foreignId('site_id')->constrained('grave_sites')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->string('image')->nullable();
-            $table->string('name')->unique();
-            $table->unsignedTinyInteger('width')->default(1);
-            $table->unsignedTinyInteger('height')->default(1);
-            $table->unsignedBigInteger('price')->default(3000000);
-            $table->text('description')->nullable();
+            $table->foreignId('bank_id')->constrained('master_banks')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->string('account_number');
+            $table->string('account_name');
             $table->timestamps();
         });
     }
@@ -29,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('grave_types');
+        Schema::dropIfExists('grave_site_banks');
     }
 };

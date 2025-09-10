@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('invoice_payments', function (Blueprint $table) {
             $table->id();
             $table->foreignId('invoice_id')->nullable()->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('site_id')->nullable()->constrained('grave_sites')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('customer_id')->nullable()->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('order_id')->nullable()->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('installment_schedule_id')->nullable()->constrained()->cascadeOnUpdate()->cascadeOnDelete();

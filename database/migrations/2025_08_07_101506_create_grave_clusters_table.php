@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('grave_clusters', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('site_id')->constrained('grave_sites')->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('image')->nullable();
             $table->string('name')->unique();
             $table->text('description')->nullable();

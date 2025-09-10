@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use App\Models\UserIdentity;
+use App\Models\UserSign;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
@@ -30,6 +31,12 @@ class UserSeeder extends Seeder
         $detail->identity_number = '1234567890';
         $detail->address = 'Jl. Anuang no. 28, Makassar';
         $user->identity()->save($detail);
+
+        $user->sign()->create([
+            'user_id' => $user->id,
+            'type' => 'domestic',
+            'site_id' => 1
+        ]);
 
         // get all permissions
         $permissions = Permission::all();

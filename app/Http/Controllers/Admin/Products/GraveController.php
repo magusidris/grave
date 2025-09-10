@@ -19,9 +19,12 @@ class GraveController extends Controller
      */
     public function index()
     {
-        $graves = Grave::when(request()->q, function ($graves) {
-            $graves = $graves->where('name', 'like', '%' . request()->q . '%');
-        })->with('cluster', 'block', 'type')->latest()->paginate(10)->withQueryString();
+        $graves = Grave::with('cluster', 'block', 'type')
+            ->orderBy('cluster_id')
+            ->orderBy('block_id')
+            ->orderBy('number')
+            ->get();
+
         $clusters = GraveCluster::all();
         $blocks = GraveBlock::all();
         $types = GraveType::all();
@@ -68,17 +71,30 @@ class GraveController extends Controller
             'cluster'      => 'required',
             'block'        => 'required',
             'type'        => 'required',
-            'name'          => 'required',
-            'description'   => 'required',
+            'from'        => 'required',
+            'to'        => 'required',
+            'code'          => 'required',
         ]);
 
-        Grave::create([
-            'cluster_id' => $request->cluster['id'],
-            'block_id' => $request->block['id'],
-            'type_id' => $request->type['id'],
-            'name' => $request->name,
-            'description' => $request->description
-        ]);
+        foreach (range($request->from, $request->to) as $number) {
+            Grave::create([
+                'cluster_id' => $request->cluster['id'],
+                'block_id' => $request->block['id'],
+                'type_id' => $request->type['id'],
+                'code' => $request->code . str_pad($number, 3, '0', STR_PAD_LEFT),
+                'number' => $number,
+                'is_available' => $request->is_available ?? true,
+                'is_occupied' => $request->is_occupied ?? false,
+                'is_fully_paid' => $request->is_fully_paid ?? false
+            ]);
+        }
+        // Grave::create([
+        //     'cluster_id' => $request->cluster['id'],
+        //     'block_id' => $request->block['id'],
+        //     'type_id' => $request->type['id'],
+        //     'name' => $request->name,
+        //     'description' => $request->description
+        // ]);
 
         //redirect
         return redirect()->route('admin.products.graves.index');

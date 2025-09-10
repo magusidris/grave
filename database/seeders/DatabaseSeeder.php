@@ -15,12 +15,14 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             MasterTitleSeeder::class,
+            MasterBankSeeder::class,
             MasterProvinceSeeder::class,
             MasterCitySeeder::class,
             MasterSubdistrictSeeder::class,
             MasterPaymentMethodSeeder::class,
             MasterIdentityTypeSeeder::class,
             MasterRelationshipSeeder::class,
+            GraveSiteSeeder::class,
             RolesSeeder::class,
             PermissionsSeeder::class,
             UserSeeder::class,

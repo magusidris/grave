@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class MasterPaymentMethod extends Model
+class GraveSite extends Model
 {
     /**
      * guarded

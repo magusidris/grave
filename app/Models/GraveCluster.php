@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class GraveCluster extends Model
 {
@@ -25,5 +26,15 @@ class GraveCluster extends Model
         static::creating(function ($model) {
             $model->sequence = GraveCluster::max('sequence') + 1;
         });
+    }
+
+    public function block(): BelongsTo
+    {
+        return $this->belongsTo(GraveBlock::class, 'block_id');
+    }
+
+    public function type(): BelongsTo
+    {
+        return $this->belongsTo(GraveType::class, 'type_id');
     }
 }

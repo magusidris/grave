@@ -13,14 +13,13 @@ return new class extends Migration
     {
         Schema::create('graves', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('site_id')->constrained('grave_sites')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('cluster_id')->constrained('grave_clusters')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('block_id')->constrained('grave_blocks')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('type_id')->constrained('grave_types')->cascadeOnUpdate()->cascadeOnDelete();
             $table->unsignedInteger('number')->default(1);
             $table->string('code')->unique();
-            $table->boolean('is_available')->default(true);
-            $table->boolean('is_occupied')->default(false);
-            $table->boolean('is_fully_paid')->default(false);
+            $table->enum('status', ['available', 'reserved', 'sold'])->default('available');
             $table->timestamps();
         });
     }

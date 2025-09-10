@@ -23,7 +23,7 @@ class GraveBlock extends Model
         parent::boot();
 
         static::creating(function ($model) {
-            $model->sequence = GraveBlock::max('sequence') + 1;
+            $model->sequence = GraveBlock::where('cluster_id', $model->cluster_id)->max('sequence') + 1;
         });
     }
 }

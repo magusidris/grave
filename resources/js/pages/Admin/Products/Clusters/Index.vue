@@ -35,6 +35,11 @@
                                 </TableCell>
                                 <TableCell class="content-start text-center">
                                     <Button class="mr-2 bg-green-600 hover:bg-green-700" size="sm" as-child
+                                        ><Link :href="`/admin/products/clusters/${value.id}/blocks`">
+                                            <Icon code="fa6-solid:eye" /> Show
+                                        </Link></Button
+                                    >
+                                    <Button class="mr-2 bg-green-600 hover:bg-green-700" size="sm" as-child
                                         ><Link :href="`/admin/products/clusters/${value.id}/edit`">
                                             <Icon code="fa6-solid:pencil" /> Edit
                                         </Link></Button

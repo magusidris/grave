@@ -39,7 +39,7 @@
                     </div>
                     <div class="mt-4 flex items-center gap-2">
                         <Button class="bg-teal-600 hover:bg-teal-700" type="submit"> Save </Button>
-                        <Button as-child><Link href="/admin/products/blocks">Batal</Link></Button>
+                        <Button as-child><Link href="/admin/products/clusters/blocks">Batal</Link></Button>
                     </div>
                 </form>
             </div>
@@ -59,13 +59,14 @@ import { type BreadcrumbItem } from '@/types';
 import { Head, Link, useForm, usePage } from '@inertiajs/vue3';
 
 const onSubmit = () => {
-    form.post('/admin/products/blocks', {
+    form.post(`/admin/products/clusters/${props.cluster.id}/blocks`, {
         onSuccess: () => form.reset(),
     });
 };
 usePage();
 
-defineProps<{
+const props = defineProps<{
+    cluster: object;
     clusters: object;
     errors: object;
 }>();
@@ -76,7 +77,7 @@ const form = useForm({
     description: '',
 });
 
-const info = { title: 'Create Cluster', description: 'Create a new cluster' };
+const info = { title: `Create Cluster ${props.cluster.name} Block`, description: 'Create a new cluster block' };
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -88,12 +89,16 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: '#',
     },
     {
+        title: `Cluster ${props.cluster.name}`,
+        href: `/admin/products/clusters/${props.cluster.id}`,
+    },
+    {
         title: 'Blocks',
-        href: '/admin/products/blocks',
+        href: `/admin/products/clusters/${props.cluster.id}/blocks`,
     },
     {
         title: 'Create Block',
-        href: '/admin/products/blocks/create',
+        href: `/admin/products/clusters/${props.cluster.id}/blocks/create`,
     },
 ];
 </script>

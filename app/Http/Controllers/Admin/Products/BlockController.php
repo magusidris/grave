@@ -15,13 +15,14 @@ class BlockController extends Controller
      *
      * @return void
      */
-    public function index()
+    public function index(GraveCluster $cluster)
     {
-        $blocks = GraveBlock::when(request()->q, function ($blocks) {
+        $blocks = GraveBlock::where('cluster_id', $cluster->id)->when(request()->q, function ($blocks) {
             $blocks = $blocks->where('name', 'like', '%' . request()->q . '%');
         })->latest()->paginate(10)->withQueryString();
 
-        return Inertia::render('Admin/Products/Blocks/Index', [
+        return Inertia::render('Admin/Products/Clusters/Blocks/Index', [
+            'cluster' => $cluster,
             'blocks' => $blocks
         ]);
     }
@@ -31,12 +32,13 @@ class BlockController extends Controller
      *
      * @return void
      */
-    public function create()
+    public function create(GraveCluster $cluster)
     {
         $clusters = GraveCluster::all();
 
         // render with inertia
-        return Inertia::render('Admin/Products/Blocks/Create', [
+        return Inertia::render('Admin/Products/Clusters/Blocks/Create', [
+            'cluster' => $cluster,
             'clusters' => $clusters
         ]);
     }
@@ -47,7 +49,7 @@ class BlockController extends Controller
      * @param  mixed $request
      * @return void
      */
-    public function store(Request $request)
+    public function store(GraveCluster $cluster, Request $request)
     {
         /**
          * Validate request
@@ -58,12 +60,13 @@ class BlockController extends Controller
         ]);
 
         GraveBlock::create([
+            'cluster_id'    => $cluster->id,
             'name'          => $request->name,
             'description'   => $request->description
         ]);
 
         //redirect
-        return redirect()->route('admin.products.blocks.index');
+        return redirect()->route('admin.products.clusters.blocks.index', $cluster->id);
     }
 
     /**

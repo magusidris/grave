@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('site_id')->constrained('grave_sites')->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('image')->nullable();
-            $table->string('name')->unique();
+            $table->string('name');
             $table->unsignedTinyInteger('width')->default(1);
             $table->unsignedTinyInteger('height')->default(1);
             $table->unsignedBigInteger('price')->default(3000000);

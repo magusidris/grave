@@ -8,7 +8,7 @@
                     <form @submit.prevent="handleSearch">
                         <div class="mb-4 flex w-full items-center">
                             <Button class="h-10 w-27 rounded-r-none bg-teal-600 uppercase hover:bg-teal-700" as-child
-                                ><Link href="/admin/products/blocks/create"><Icon code="fa6-solid:plus" /> New</Link>
+                                ><Link :href="`/admin/products/clusters/${props.cluster.id}/blocks/create`"><Icon code="fa6-solid:plus" /> New</Link>
                             </Button>
                             <Input v-model="search" class="h-10 rounded-none" id="search" type="text" placeholder="Search" />
                             <Button class="h-10 w-27 rounded-l-none bg-teal-600 uppercase hover:bg-teal-700" type="submit">
@@ -78,7 +78,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import AppLayout from '@/layouts/AppLayout.vue';
-import { type Block, type BreadcrumbItem } from '@/types';
+import { type Block, type BreadcrumbItem, type Cluster } from '@/types';
 import { Head, Link, router, usePage } from '@inertiajs/vue3';
 
 import iziToast from 'izitoast';
@@ -88,7 +88,8 @@ import { ref } from 'vue';
 
 usePage();
 
-defineProps<{
+const props = defineProps<{
+    cluster: Cluster[];
     blocks: Block[];
     errors: object;
 }>();
@@ -107,7 +108,7 @@ const handleSearch = () => {
     );
 };
 
-const info = { title: 'Block Management', description: 'Manage your Blocks' };
+const info = { title: `Cluster ${props.cluster.name} Block Management`, description: 'Manage your Blocks' };
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -119,14 +120,17 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: '#',
     },
     {
+        title: `Cluster ${props.cluster.name}`,
+        href: '#',
+    },
+    {
         title: 'Blocks',
         href: '/admin/products/blocks',
     },
 ];
 
 const handleConfirmDelete = (value: Block) => {
-    router.delete(route('admin.products.blocks.destroy', value.id), {
-        preserveState: true,
+    router.delete(`/admin/products/clusters/${props.cluster.id}/blocks/${value.id}`, {
         onSuccess: () => {
             iziToast.show({
                 title: 'Success',

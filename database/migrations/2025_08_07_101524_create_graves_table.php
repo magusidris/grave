@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('cluster_id')->constrained('grave_clusters')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('block_id')->constrained('grave_blocks')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('type_id')->constrained('grave_types')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->unsignedInteger('number')->default(1);
+            $table->unsignedInteger('sequence')->default(1);
             $table->string('code')->unique();
             $table->enum('status', ['available', 'reserved', 'sold'])->default('available');
             $table->timestamps();

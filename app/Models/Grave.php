@@ -24,9 +24,9 @@ class Grave extends Model
         parent::boot();
 
         static::creating(function ($model) {
-            $model->number = Grave::where('cluster_id', $model->cluster_id)
+            $model->sequence = Grave::where('cluster_id', $model->cluster_id)
                 ->where('block_id', $model->block_id)
-                ->max('number') + 1;
+                ->max('sequence') + 1;
         });
     }
 

@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             MasterIdentityTypeSeeder::class,
             MasterRelationshipSeeder::class,
             GraveSiteSeeder::class,
+            GraveTypeSeeder::class,
             RolesSeeder::class,
             PermissionsSeeder::class,
             UserSeeder::class,

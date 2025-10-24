@@ -17,22 +17,17 @@ class GraveController extends Controller
      *
      * @return void
      */
-    public function index()
+    public function index(GraveCluster $cluster, GraveBlock $block)
     {
         $graves = Grave::with('cluster', 'block', 'type')
-            ->orderBy('cluster_id')
-            ->orderBy('block_id')
-            ->orderBy('number')
             ->get();
 
-        $clusters = GraveCluster::all();
-        $blocks = GraveBlock::all();
         $types = GraveType::all();
 
-        return Inertia::render('Admin/Products/Graves/Index', [
+        return Inertia::render('Admin/Products/Clusters/Blocks/Graves/Index', [
+            'cluster' => $cluster,
+            'block' => $block,
             'graves' => $graves,
-            'clusters' => $clusters,
-            'blocks' => $blocks,
             'types' => $types
         ]);
     }
@@ -62,42 +57,27 @@ class GraveController extends Controller
      * @param  mixed $request
      * @return void
      */
-    public function store(Request $request)
+    public function store(GraveCluster $cluster, GraveBlock $block, Request $request)
     {
         /**
          * Validate request
          */
         $request->validate([
-            'cluster'      => 'required',
-            'block'        => 'required',
-            'type'        => 'required',
-            'from'        => 'required',
-            'to'        => 'required',
-            'code'          => 'required',
+            'amount'   => 'required',
+            'type'   => 'required',
         ]);
 
-        foreach (range($request->from, $request->to) as $number) {
-            Grave::create([
-                'cluster_id' => $request->cluster['id'],
-                'block_id' => $request->block['id'],
-                'type_id' => $request->type['id'],
-                'code' => $request->code . str_pad($number, 3, '0', STR_PAD_LEFT),
-                'number' => $number,
-                'is_available' => $request->is_available ?? true,
-                'is_occupied' => $request->is_occupied ?? false,
-                'is_fully_paid' => $request->is_fully_paid ?? false
-            ]);
-        }
-        // Grave::create([
-        //     'cluster_id' => $request->cluster['id'],
-        //     'block_id' => $request->block['id'],
-        //     'type_id' => $request->type['id'],
-        //     'name' => $request->name,
-        //     'description' => $request->description
-        // ]);
+        Grave::create([
+            'site_id'   => 1,
+            'cluster_id' => $request->cluster['id'],
+            'block_id' => $request->block['id'],
+            'type_id' => $request->type['id'],
+            'code' => $request->code,
+            'description' => $request->description
+        ]);
 
         //redirect
-        return redirect()->route('admin.products.graves.index');
+        return redirect()->route('admin.products.clusters.blocks.graves.index', [$cluster->id, $block->id]);
     }
 
     /**

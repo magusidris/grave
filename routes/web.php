@@ -44,6 +44,10 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->name('admin.')->group(
 
         Route::prefix('clusters')->name('clusters.')->group(function () {
             Route::resource('{cluster}/blocks', \App\Http\Controllers\Admin\Products\BlockController::class);
+
+            Route::prefix('{cluster}/blocks')->name('blocks.')->group(function () {
+                Route::resource('{block}/graves', \App\Http\Controllers\Admin\Products\GraveController::class);
+            });
         });
 
         Route::resource('types', \App\Http\Controllers\Admin\Products\TypeController::class);

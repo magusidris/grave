@@ -19,7 +19,7 @@ class BlockController extends Controller
     {
         $blocks = GraveBlock::where('cluster_id', $cluster->id)->when(request()->q, function ($blocks) {
             $blocks = $blocks->where('name', 'like', '%' . request()->q . '%');
-        })->latest()->paginate(10)->withQueryString();
+        })->orderBy('sequence')->latest()->paginate(7)->withQueryString();
 
         return Inertia::render('Admin/Products/Clusters/Blocks/Index', [
             'cluster' => $cluster,
@@ -55,15 +55,14 @@ class BlockController extends Controller
          * Validate request
          */
         $request->validate([
-            'name'          => 'required',
-            'description'   => 'required',
+            'amount'   => 'required',
         ]);
 
-        GraveBlock::create([
-            'cluster_id'    => $cluster->id,
-            'name'          => $request->name,
-            'description'   => $request->description
-        ]);
+        for ($i = 0; $i < $request->amount; $i++) {
+            GraveBlock::create([
+                'cluster_id' => $cluster->id,
+            ]);
+        }
 
         //redirect
         return redirect()->route('admin.products.clusters.blocks.index', $cluster->id);

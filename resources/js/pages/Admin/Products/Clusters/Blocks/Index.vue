@@ -4,7 +4,29 @@
         <div class="p-4">
             <div class="flex h-full flex-col space-y-6">
                 <HeadingSmall :title="info.title" :description="info.description" />
-                <div class="h-[29rem]">
+                <div class="h-[38rem]">
+                    <form @submit.prevent="addBlock">
+                        <div class="mb-7 flex flex-col space-y-3 border px-5 py-5">
+                            <div class="text-lg font-bold">Tambahkan Block</div>
+                            <div class="flex w-[60%] space-x-3">
+                                <div class="w-full">
+                                    <div class="w-full">
+                                        <Input
+                                            type="number"
+                                            min="1"
+                                            v-model="form.amount"
+                                            class=""
+                                            placeholder="Jumlah block yang akan ditambahkan"
+                                        />
+                                        <InputError class="mt-2" :message="form.errors.amount" />
+                                    </div>
+                                </div>
+                                <Button type="submit" class="btn join-item btn-sm md:btn-md bg-green-500 text-white hover:bg-green-600">
+                                    <Icon code="line-md:document-code-twotone" size="16" />Generate
+                                </Button>
+                            </div>
+                        </div>
+                    </form>
                     <form @submit.prevent="handleSearch">
                         <div class="mb-4 flex w-full items-center">
                             <Button class="h-10 w-27 rounded-r-none bg-teal-600 uppercase hover:bg-teal-700" as-child
@@ -34,6 +56,11 @@
                                     {{ value.description }}
                                 </TableCell>
                                 <TableCell class="content-start text-center">
+                                    <Button class="mr-2 bg-green-600 hover:bg-green-700" size="sm" as-child
+                                        ><Link :href="`/admin/products/clusters/${cluster.id}/blocks/${value.id}/graves`">
+                                            <Icon code="fa6-solid:eye" /> Show
+                                        </Link></Button
+                                    >
                                     <Button class="mr-2 bg-green-600 hover:bg-green-700" size="sm" as-child
                                         ><Link :href="`/admin/products/clusters/${props.cluster.id}/blocks/${value.id}/edit`">
                                             <Icon code="fa6-solid:pencil" /> Edit
@@ -73,13 +100,14 @@
 import AlertDialog from '@/components/AlertDialog.vue';
 import HeadingSmall from '@/components/HeadingSmall.vue';
 import Icon from '@/components/Icon.vue';
+import InputError from '@/components/InputError.vue';
 import Pagination from '@/components/Pagination.vue';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { type Block, type BreadcrumbItem, type Cluster } from '@/types';
-import { Head, Link, router, usePage } from '@inertiajs/vue3';
+import { Head, Link, router, useForm, usePage } from '@inertiajs/vue3';
 
 import iziToast from 'izitoast';
 
@@ -140,6 +168,16 @@ const handleConfirmDelete = (value: Block) => {
                 message: `Block ${value.name} deleted successfully.`,
             });
         },
+    });
+};
+
+const form = useForm({
+    amount: '',
+});
+
+const addBlock = () => {
+    form.post(`/admin/products/clusters/${props.cluster.id}/blocks`, {
+        onSuccess: () => form.reset(),
     });
 };
 </script>

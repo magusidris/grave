@@ -10,8 +10,8 @@
                             <div class="text-lg font-bold">Tambahkan Makam</div>
                             <div class="flex w-[60%] space-x-3">
                                 <div class="w-full">
-                                    <div class="flex w-full">
-                                        <div>
+                                    <div class="flex w-full gap-x-3">
+                                        <div class="w-full">
                                             <Input
                                                 type="number"
                                                 min="1"
@@ -38,114 +38,7 @@
                             </div>
                         </div>
                     </form>
-                    <form @submit.prevent="handleSearch">
-                        <div class="mb-4 flex w-full items-center">
-                            <Dialog>
-                                <template #trigger>
-                                    <Button class="h-10 w-27 cursor-pointer rounded-r-none bg-teal-600 uppercase hover:bg-teal-700"
-                                        ><Icon code="fa6-solid:plus" /> New
-                                    </Button>
-                                </template>
-                                <template #header>
-                                    <DialogTitle>Add Grave</DialogTitle>
-                                    <DialogDescription> Fill in the details below to add a new grave. </DialogDescription>
-                                </template>
-                                <template #default>
-                                    <div class="grid gap-4 lg:grid-cols-2">
-                                        <div class="grid w-full items-center gap-1.5">
-                                            <Label for="cluster">Cluster</Label>
-                                            <SimpleCombobox
-                                                class="inset-y-0 start-0 w-full"
-                                                title="Cluster"
-                                                @change="onTypeChange"
-                                                v-model="form.cluster"
-                                                :datas="clusters"
-                                                placeholder="Select Cluster"
-                                            />
-                                            <InputError class="mt-2" :message="form.errors.cluster" />
-                                        </div>
-                                        <div class="grid w-full items-center gap-1.5">
-                                            <Label for="block">Block</Label>
-                                            <SimpleCombobox
-                                                class="inset-y-0 start-0 w-full"
-                                                title="Block"
-                                                @change="getCountOfGraves"
-                                                v-model="form.block"
-                                                :datas="blocks"
-                                                placeholder="Select Block"
-                                            />
-                                            <InputError class="mt-2" :message="form.errors.block" />
-                                        </div>
-                                    </div>
-                                    <div class="grid gap-4 lg:grid-cols-2">
-                                        <div class="grid w-full items-center gap-1.5">
-                                            <Label for="type">Type</Label>
-                                            <SimpleCombobox
-                                                class="inset-y-0 start-0 w-full"
-                                                title="Type"
-                                                @change="onTypeChange"
-                                                v-model="form.type"
-                                                :datas="types"
-                                                placeholder="Select Type"
-                                            />
-                                            <InputError class="mt-2" :message="form.errors.type" />
-                                        </div>
-                                        <div class="grid w-full items-center gap-1.5">
-                                            <Label for="number">Number</Label>
-                                            <div class="grid grid-cols-2 gap-2">
-                                                <div>
-                                                    <Input
-                                                        id="from"
-                                                        ref="from"
-                                                        v-model="form.from"
-                                                        type="number"
-                                                        class="mt-1 block w-full"
-                                                        placeholder="From"
-                                                    />
-                                                    <InputError class="mt-2" :message="form.errors.from" />
-                                                </div>
-                                                <div>
-                                                    <Input
-                                                        id="to"
-                                                        ref="to"
-                                                        v-model="form.to"
-                                                        type="number"
-                                                        class="mt-1 block w-full"
-                                                        placeholder="To"
-                                                    />
-                                                    <InputError class="mt-2" :message="form.errors.to" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="grid w-full items-center gap-1.5">
-                                        <Label for="code">Code</Label>
-                                        <Input id="code" v-model="form.code" type="text" class="mt-1 block w-full" placeholder="Code" disabled />
-                                        <InputError class="mt-2" :message="form.errors.code" />
-                                    </div>
-                                    <label class="flex items-center">
-                                        <Checkbox name="is_available" v-model:checked="form.is_available" />
-                                        <span class="ml-2 text-sm text-gray-600 select-none">Is Available</span>
-                                    </label>
-                                    <label class="flex items-center">
-                                        <Checkbox name="is_occupied" v-model:checked="form.is_occupied" />
-                                        <span class="ml-2 text-sm text-gray-600 select-none">Is Occupied</span>
-                                    </label>
-                                    <label class="flex items-center">
-                                        <Checkbox name="is_fully_paid" v-model:checked="form.is_fully_paid" />
-                                        <span class="ml-2 text-sm text-gray-600 select-none">Is Fully Paid</span>
-                                    </label>
-                                </template>
-                                <template #footer>
-                                    <form @submit.prevent="onSubmit"><Button type="submit"> Generate </Button></form>
-                                </template>
-                            </Dialog>
-                            <Input v-model="search" class="h-10 rounded-none" id="search" type="text" placeholder="Search" />
-                            <Button class="h-10 w-27 cursor-pointer rounded-l-none bg-teal-600 uppercase hover:bg-teal-700" type="submit">
-                                <Icon code="heroicons:magnifying-glass-16-solid" /> Cari
-                            </Button>
-                        </div>
-                    </form>
+
                     <div class="mx-auto w-full">
                         <h1 class="mb-2 text-center text-4xl font-bold text-gray-900">Dashboard Kavling Pemakaman</h1>
                         <p class="mb-8 text-center text-gray-600">Visualisasi ketersediaan kavling secara real-time.</p>
@@ -164,10 +57,6 @@
                                 <div class="mr-2 h-5 w-5 rounded-sm bg-red-500"></div>
                                 <span class="text-sm font-medium">Terjual</span>
                             </div>
-                            <div class="flex items-center">
-                                <div class="mr-2 h-5 w-5 rounded-sm bg-gray-700"></div>
-                                <span class="text-sm font-medium">Ditempati</span>
-                            </div>
                         </div>
 
                         <div class="flex w-full pb-6">
@@ -177,13 +66,22 @@
                                 <div class="w-full flex-shrink-0 rounded-xl bg-white" id="cluster-bougenville">
                                     <div class="w-auto flex-shrink-0 rounded-lg border bg-gray-50 p-6">
                                         <h3 class="mb-4 text-center text-xl font-semibold">Blok A</h3>
-                                        <div class="grid grid-cols-10 gap-2">
+                                        <div class="grid grid-cols-10 gap-y-5">
                                             <!-- 20 Kavling (Grave) -->
                                             <div
-                                                class="flex h-[2rem] w-[1.2rem] items-center justify-center rounded bg-green-500 text-xs font-bold text-white"
-                                                title="A-1"
+                                                v-for="value in graves"
+                                                :key="value.id"
+                                                class="flex h-[7rem] w-[4rem] items-center justify-center rounded bg-green-500 text-xs font-bold text-white"
+                                                :class="[
+                                                    value.type_id == 1 ? 'h-[7rem] w-[2rem]' : 'h-[7rem] w-[4rem]',
+                                                    value.status == 'available'
+                                                        ? 'bg-green-500'
+                                                        : value.status == 'reserved'
+                                                          ? 'bg-yellow-500'
+                                                          : 'bg-red-500',
+                                                ]"
                                             >
-                                                1
+                                                {{ value.type_id == 1 ? `M-${value.sequence}` : `L-${value.sequence}` }}
                                             </div>
                                         </div>
                                     </div>
@@ -198,20 +96,15 @@
 </template>
 
 <script setup lang="ts">
-import Checkbox from '@/components/Checkbox.vue';
 import Combobox from '@/components/Combobox.vue';
-import Dialog from '@/components/Dialog.vue';
 import HeadingSmall from '@/components/HeadingSmall.vue';
 import Icon from '@/components/Icon.vue';
 import InputError from '@/components/InputError.vue';
-import SimpleCombobox from '@/components/SimpleCombobox.vue';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { type Block, type BreadcrumbItem, type Cluster, type Grave, type Type } from '@/types';
 import { Head, router, useForm, usePage } from '@inertiajs/vue3';
-
-import { Label } from '@/components/ui/label';
 
 import iziToast from 'izitoast';
 

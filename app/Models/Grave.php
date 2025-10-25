@@ -24,9 +24,26 @@ class Grave extends Model
         parent::boot();
 
         static::creating(function ($model) {
-            $model->sequence = Grave::where('cluster_id', $model->cluster_id)
-                ->where('block_id', $model->block_id)
-                ->max('sequence') + 1;
+            $model->sequence = Grave::where([
+                ['site_id', $model->site_id],
+                ['cluster_id', $model->cluster_id],
+                ['block_id', $model->block_id],
+            ])->max('sequence') + 1;
+
+            $cluster = \App\Models\GraveCluster::find($model->cluster_id);
+            $block = \App\Models\GraveBlock::find($model->block_id);
+            $type = \App\Models\GraveType::find($model->type_id);
+
+            $siteName = $cluster && $cluster->site ? mb_strtoupper($cluster->site->name) : '';
+            $clusterName = $cluster ? $cluster->name : '';
+            $blockName = $block ? $block->name : '';
+            $typeName = $type ? mb_strtoupper($type->name) : '';
+
+            $siteCode = mb_substr(preg_replace('/[^A-Z]/u', '', $siteName), 0, 2);
+            $clusterCode = preg_replace('/[^A-Z]/u', '', ucwords($clusterName));
+            $sequencePadded = str_pad($model->sequence, 3, '0', STR_PAD_LEFT);
+
+            $model->code = $siteCode . $clusterCode . $blockName . $typeName[0] . $sequencePadded;
         });
     }
 

@@ -67,14 +67,14 @@ class GraveController extends Controller
             'type'   => 'required',
         ]);
 
-        Grave::create([
-            'site_id'   => 1,
-            'cluster_id' => $request->cluster['id'],
-            'block_id' => $request->block['id'],
-            'type_id' => $request->type['id'],
-            'code' => $request->code,
-            'description' => $request->description
-        ]);
+        for ($i = 0; $i < $request->amount; $i++) {
+            Grave::create([
+                'site_id'   => $cluster->site_id,
+                'cluster_id' => $cluster->id,
+                'block_id' => $block->id,
+                'type_id' => $request->type['id']
+            ]);
+        }
 
         //redirect
         return redirect()->route('admin.products.clusters.blocks.graves.index', [$cluster->id, $block->id]);

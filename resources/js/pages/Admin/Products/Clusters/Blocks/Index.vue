@@ -148,12 +148,12 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: '#',
     },
     {
-        title: `Cluster ${props.cluster.name}`,
-        href: '#',
+        title: 'Clusters',
+        href: `/admin/products/clusters`,
     },
     {
         title: 'Blocks',
-        href: '/admin/products/blocks',
+        href: `/admin/products/clusters/${props.cluster.id}/blocks`,
     },
 ];
 

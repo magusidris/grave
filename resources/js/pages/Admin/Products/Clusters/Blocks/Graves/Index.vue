@@ -3,14 +3,14 @@
         <Head :title="info.title" />
         <div class="p-4">
             <div class="flex h-full flex-col space-y-6">
-                <HeadingSmall :title="info.title" :description="info.description" />
+                <HeadingSmall class="capitalize" :title="info.title" :description="info.description" />
                 <div class="h-[29rem]">
                     <form @submit.prevent="addGrave">
                         <div class="mb-7 flex flex-col space-y-3 border px-5 py-5">
                             <div class="text-lg font-bold">Tambahkan Makam</div>
-                            <div class="flex w-[60%] space-x-3">
+                            <div class="flex space-x-3 2xl:w-[50%]">
                                 <div class="w-full">
-                                    <div class="flex w-full gap-x-3">
+                                    <div class="flex w-full flex-col gap-x-3 lg:flex-row">
                                         <div class="w-full">
                                             <Input
                                                 type="number"
@@ -23,25 +23,27 @@
                                         </div>
                                         <div>
                                             <Combobox
-                                                class="inset-y-0 start-0 w-40"
+                                                class="inset-y-0 start-0 w-full 2xl:w-50"
                                                 v-model="form.type"
                                                 :items="types"
                                                 placeholder="Pilih tipe makam"
                                             />
                                             <InputError class="mt-2" :message="form.errors.type" />
                                         </div>
+                                        <Button type="submit" class="btn join-item btn-sm md:btn-md bg-green-500 text-white hover:bg-green-600">
+                                            <Icon code="line-md:document-code-twotone" size="16" />Generate
+                                        </Button>
                                     </div>
                                 </div>
-                                <Button type="submit" class="btn join-item btn-sm md:btn-md bg-green-500 text-white hover:bg-green-600">
-                                    <Icon code="line-md:document-code-twotone" size="16" />Generate
-                                </Button>
                             </div>
                         </div>
                     </form>
 
                     <div class="mx-auto w-full">
-                        <h1 class="mb-2 text-center text-4xl font-bold text-gray-900">Dashboard Kavling Pemakaman</h1>
-                        <p class="mb-8 text-center text-gray-600">Visualisasi ketersediaan kavling secara real-time.</p>
+                        <h1 class="mb-2 text-center text-lg font-bold text-gray-900 capitalize 2xl:text-4xl">
+                            Dashboard Blok {{ props.block.name }} Kluster {{ props.cluster.name }}
+                        </h1>
+                        <p class="mb-8 text-center text-sm text-gray-600 2xl:text-lg">Visualisasi ketersediaan kavling makam secara real-time.</p>
 
                         <!-- KARTU LEGENDA -->
                         <div class="mb-10 flex items-center justify-center space-x-6 rounded-lg bg-white p-4 shadow-md">
@@ -65,15 +67,14 @@
                                 <!-- CLUSTER 1: BOUGENVILLE -->
                                 <div class="w-full flex-shrink-0 rounded-xl bg-white" id="cluster-bougenville">
                                     <div class="w-auto flex-shrink-0 rounded-lg border bg-gray-50 p-6">
-                                        <h3 class="mb-4 text-center text-xl font-semibold">Blok A</h3>
-                                        <div class="grid grid-cols-10 gap-y-5">
+                                        <div class="grid grid-cols-4 gap-y-5 lg:grid-cols-8 2xl:grid-cols-10">
                                             <!-- 20 Kavling (Grave) -->
                                             <div
                                                 v-for="value in graves"
                                                 :key="value.id"
-                                                class="flex h-[7rem] w-[4rem] items-center justify-center rounded bg-green-500 text-xs font-bold text-white"
+                                                class="group relative flex overflow-hidden rounded-xl shadow-lg"
                                                 :class="[
-                                                    value.type_id == 1 ? 'h-[7rem] w-[2rem]' : 'h-[7rem] w-[4rem]',
+                                                    value.type_id == 1 ? 'h-[7rem] w-[4rem]' : 'h-[7rem] w-[4.3rem]',
                                                     value.status == 'available'
                                                         ? 'bg-green-500'
                                                         : value.status == 'reserved'
@@ -81,7 +82,18 @@
                                                           : 'bg-red-500',
                                                 ]"
                                             >
-                                                {{ value.type_id == 1 ? `M-${value.sequence}` : `L-${value.sequence}` }}
+                                                <div class="h-full w-[10rem] border transition duration-300 ease-in-out group-hover:scale-105"></div>
+
+                                                <div
+                                                    class="absolute right-0 bottom-0 left-0 flex h-9 items-center justify-center bg-black/20 text-white transition-all duration-500 ease-out group-hover:h-full"
+                                                >
+                                                    <div class="text-sm font-black">
+                                                        {{ value.type_id == 1 ? `M - ${value.sequence}` : `L - ${value.sequence}` }}
+                                                    </div>
+                                                </div>
+                                                <div
+                                                    class="absolute inset-0 opacity-0 transition-opacity duration-300 ease-in group-hover:opacity-100"
+                                                ></div>
                                             </div>
                                         </div>
                                     </div>
@@ -135,20 +147,28 @@ const handleSearch = () => {
     );
 };
 
-const info = { title: `Cluster ${props.cluster.name} Block ${props.block.name} Grave Management`, description: 'Manage your Graves' };
+const info = { title: `Block ${props.block.name} Cluster ${props.cluster.name} Grave Management`, description: 'Manage your Graves' };
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Admin',
-        href: '#',
+        href: '/admin/dashboard',
     },
     {
         title: 'Products',
         href: '#',
     },
     {
+        title: 'Clusters',
+        href: `/admin/products/clusters`,
+    },
+    {
+        title: 'Blocks',
+        href: `/admin/products/clusters/${props.cluster.id}/blocks`,
+    },
+    {
         title: 'Graves',
-        href: '/admin/products/graves',
+        href: `/admin/products/clusters/${props.cluster.id}/blocks/${props.block.id}/graves`,
     },
 ];
 

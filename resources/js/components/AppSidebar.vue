@@ -17,6 +17,27 @@ const mainNavItems: NavItem[] = [
 
 const navItem2: NavItem[] = [
     {
+        title: 'Products',
+        href: '/products',
+        icon: LayoutGrid,
+        isActive: true,
+        items: [
+            {
+                title: 'Graves',
+                href: '/admin/products/clusters',
+                icon: Target,
+            },
+            {
+                title: 'Types',
+                href: '/admin/products/types',
+                icon: Target,
+            },
+        ],
+    },
+];
+
+const navItem3: NavItem[] = [
+    {
         title: 'Master Data',
         href: '/master',
         icon: LayoutGrid,
@@ -55,37 +76,6 @@ const navItem2: NavItem[] = [
             {
                 title: 'Payment Methods',
                 href: '/admin/master/payments',
-                icon: Target,
-            },
-        ],
-    },
-];
-
-const navItem3: NavItem[] = [
-    {
-        title: 'Products',
-        href: '/products',
-        icon: LayoutGrid,
-        isActive: true,
-        items: [
-            {
-                title: 'Clusters',
-                href: '/admin/products/clusters',
-                icon: Target,
-            },
-            {
-                title: 'Blocks',
-                href: '/admin/products/blocks',
-                icon: Target,
-            },
-            {
-                title: 'Types',
-                href: '/admin/products/types',
-                icon: Target,
-            },
-            {
-                title: 'Graves',
-                href: '/admin/products/graves',
                 icon: Target,
             },
         ],

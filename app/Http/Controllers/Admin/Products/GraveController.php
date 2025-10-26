@@ -19,7 +19,7 @@ class GraveController extends Controller
      */
     public function index(GraveCluster $cluster, GraveBlock $block)
     {
-        $graves = Grave::with('cluster', 'block', 'type')
+        $graves = Grave::where([['cluster_id', $cluster->id], ['block_id', $block->id]])->with('cluster', 'block', 'type')
             ->get();
 
         $types = GraveType::all();

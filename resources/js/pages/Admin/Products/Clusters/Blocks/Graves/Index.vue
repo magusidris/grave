@@ -67,34 +67,41 @@
                                 <!-- CLUSTER 1: BOUGENVILLE -->
                                 <div class="w-full flex-shrink-0 rounded-xl bg-white" id="cluster-bougenville">
                                     <div class="w-auto flex-shrink-0 rounded-lg border bg-gray-50 p-6">
-                                        <div class="grid grid-cols-4 gap-y-5 lg:grid-cols-8 2xl:grid-cols-10">
-                                            <!-- 20 Kavling (Grave) -->
-                                            <div
-                                                v-for="value in graves"
-                                                :key="value.id"
-                                                class="group relative flex overflow-hidden rounded-xl shadow-lg"
-                                                :class="[
-                                                    value.type_id == 1 ? 'h-[7rem] w-[4rem]' : 'h-[7rem] w-[4.3rem]',
-                                                    value.status == 'available'
-                                                        ? 'bg-green-500'
-                                                        : value.status == 'reserved'
-                                                          ? 'bg-yellow-500'
-                                                          : 'bg-red-500',
-                                                ]"
-                                            >
-                                                <div class="h-full w-[10rem] border transition duration-300 ease-in-out group-hover:scale-105"></div>
-
+                                        <div class="relative grid min-h-[20rem] grid-cols-4 gap-y-5 lg:grid-cols-8 2xl:grid-cols-10">
+                                            <template v-if="graves.length > 0">
                                                 <div
-                                                    class="absolute right-0 bottom-0 left-0 flex h-9 items-center justify-center bg-black/20 text-white transition-all duration-500 ease-out group-hover:h-full"
+                                                    v-for="value in graves"
+                                                    :key="value.id"
+                                                    class="group relative flex overflow-hidden rounded-xl shadow-lg"
+                                                    :class="[
+                                                        value.type_id == 1 ? 'h-[7rem] w-[4rem]' : 'h-[7rem] w-[4.3rem]',
+                                                        value.status == 'available'
+                                                            ? 'bg-green-500'
+                                                            : value.status == 'reserved'
+                                                              ? 'bg-yellow-500'
+                                                              : 'bg-red-500',
+                                                    ]"
                                                 >
-                                                    <div class="text-sm font-black">
-                                                        {{ value.type_id == 1 ? `M - ${value.sequence}` : `L - ${value.sequence}` }}
+                                                    <div
+                                                        class="h-full w-[10rem] border transition duration-300 ease-in-out group-hover:scale-105"
+                                                    ></div>
+                                                    <div
+                                                        class="absolute right-0 bottom-0 left-0 flex h-9 items-center justify-center bg-black/20 text-white transition-all duration-500 ease-out group-hover:h-full"
+                                                    >
+                                                        <div class="text-sm font-black">
+                                                            {{ value.type_id == 1 ? `M - ${value.sequence}` : `L - ${value.sequence}` }}
+                                                        </div>
                                                     </div>
+                                                    <div
+                                                        class="absolute inset-0 opacity-0 transition-opacity duration-300 ease-in group-hover:opacity-100"
+                                                    ></div>
                                                 </div>
-                                                <div
-                                                    class="absolute inset-0 opacity-0 transition-opacity duration-300 ease-in group-hover:opacity-100"
-                                                ></div>
-                                            </div>
+                                            </template>
+                                            <template v-else>
+                                                <div class="absolute inset-0 flex items-center justify-center text-gray-500">
+                                                    Belum ada data pada kluster blok ini
+                                                </div>
+                                            </template>
                                         </div>
                                     </div>
                                 </div>

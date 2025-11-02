@@ -18,19 +18,16 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         $user = User::create([
-            'title_id' => 3,
+            'title_id' => 1,
             'name' => 'Idris',
             'email' => 'magusidris@undipa.ac.id',
             'phone' => '081234567890',
+            'identity_type_id' => 1,
+            'identity_number' => '7371101608910001',
+            'address' => 'Jl. Anuang no. 28, Makassar',
             'email_verified_at' => now(),
             'password' => bcrypt('Bismillah'),
         ]);
-
-        $detail = new UserIdentity;
-        $detail->identity_type_id = 1;
-        $detail->identity_number = '1234567890';
-        $detail->address = 'Jl. Anuang no. 28, Makassar';
-        $user->identity()->save($detail);
 
         $user->sign()->create([
             'user_id' => $user->id,

@@ -80,22 +80,6 @@
                             </div>
                         </div>
                     </div>
-                    <hr />
-                    <div class="mr-3 inline-flex" v-for="(value, id) in roles" :key="id">
-                        <div class="flex items-center space-x-2">
-                            <label class="label cursor-pointer space-x-2 select-none" :for="`check-${value.id}`">
-                                <input
-                                    type="checkbox"
-                                    checked="checked"
-                                    class="checkbox"
-                                    v-model="form.roles"
-                                    :value="value.name"
-                                    :id="`check-${value.id}`"
-                                />
-                                <span class="label-text">{{ value.name }}</span>
-                            </label>
-                        </div>
-                    </div>
                     <div class="mt-4 flex items-center gap-2">
                         <Button class="bg-teal-600 hover:bg-teal-700" type="submit"> Save </Button>
                         <Button as-child><Link href="/admin/customers">Batal</Link></Button>
@@ -125,7 +109,6 @@ const page = usePage();
 
 const props = defineProps<{
     titles: Array;
-    roles: Array;
     customer: object;
     errors: object;
 }>();

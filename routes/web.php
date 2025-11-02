@@ -12,6 +12,9 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->name('admin.')->group(
         return Inertia::render('Admin/Dashboard/Index');
     })->name('dashboard');
 
+
+    Route::resource('customers', \App\Http\Controllers\Admin\CustomerController::class);
+
     Route::prefix('master')->name('master.')->group(function () {
 
         Route::get('provinces', \App\Http\Controllers\Admin\Master\ProvinceController::class)->name('provinces.index');
